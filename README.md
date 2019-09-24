@@ -1,16 +1,10 @@
-# Web bán linh kiện và phụ kiện máy tính
+# Web trung tâm giảng dạy
 
-Mongo, Express, NodeJs, Bootstrap
+Mongo, Express,React, NodeJs, Bootstrap
 
-### Package
-  
-node_modules
-
-### run project
-
->npm start
-
-### deployment
-
-[http://localhost:3000](http://localhost:3000)
+### Thành viên
+- 1. Phạm Đại Tài - 20163601
+- 2.
+- 3. 
+- 4. 
 
