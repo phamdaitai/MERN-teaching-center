@@ -1,4 +1,4 @@
-# Web trung tâm giảng dạy
+# Web trung tâm dạy học
 
 Mongo, Express,React, NodeJs, Bootstrap
 
