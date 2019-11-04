@@ -1,6 +1,6 @@
 ## Web trung tâm dạy học
 
-- Mongo, Express,React, NodeJs, Bootstrap
+- Mongo, Express, React, NodeJs, Bootstrap
 
 ### Run server
 - node server.js
@@ -9,5 +9,5 @@
 ### Run client
 - cd client
 - npm start _or_ yarn start
-- browser: http://localhost:5000/
+- browser: http://localhost:3000/
 
