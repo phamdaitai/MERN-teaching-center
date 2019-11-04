@@ -1,0 +1,23 @@
+{
+  "name": "mern-teaching-center",
+  "version": "1.0.0",
+  "description": "Mongo, Express,React, NodeJs, Bootstrap",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/phamdaitai/MERN-teaching-center.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/phamdaitai/MERN-teaching-center/issues"
+  },
+  "homepage": "https://github.com/phamdaitai/MERN-teaching-center#readme",
+  "dependencies": {
+    "express": "^4.17.1"
+  }
+}
