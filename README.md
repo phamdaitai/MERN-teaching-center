@@ -2,9 +2,12 @@
 
 Mongo, Express,React, NodeJs, Bootstrap
 
-### Thành viên
-- Phạm Đại Tài - 20163601
--
--
--
+### Run server
+node server.js
+browser: http://localhost:5000/
+
+## Run client
+cd client
+npm start _or_ yarn start
+browser: http://localhost:5000/
 
