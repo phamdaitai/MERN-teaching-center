@@ -1,0 +1,9 @@
+.footer-right-content > a > img {
+  height: 40px;
+  width: 40px;
+  border-radius: 4px;
+}
+
+.footer-right-content > a > img:hover {
+  transform: scale(1.05);
+}

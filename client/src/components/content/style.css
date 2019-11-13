@@ -1,0 +1,10 @@
+.content {
+  width: 100%;
+  padding: 0rem 0rem 1rem 0rem;
+}
+.background-image-content {
+  background-image: url(https://khohinhdep.com/wp-content/uploads/2017/10/38-hinh-nen-cho-desktop-chat-luong-full-hd-01.jpg);
+  background-size: 100% 400px;
+  opacity: 0.8;
+  background-repeat: no-repeat;
+}
