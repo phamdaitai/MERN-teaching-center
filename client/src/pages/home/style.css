@@ -1,0 +1,30 @@
+/* LAYOUT */
+.home {
+  width: 100%;
+  margin-top: 69px;
+  border-radius: 4px;
+  box-shadow: rgb(197, 197, 197) 0px 0px 10px 0px;
+  background-color: #fff;
+  display: grid;
+  grid-template-columns: repeat(1, 1fr);
+  grid-gap: 0px;
+  grid-auto-rows: minmax(100px, auto);
+  overflow: hidden;
+}
+
+.home-on-top {
+  grid-column: 1;
+  grid-row: 1/5;
+}
+
+.home-middle {
+  grid-column: 1;
+  grid-row: 5/11;
+  background-color: rgb(141, 190, 55);
+}
+
+.home-bottom {
+  grid-column: 1;
+  grid-row: 11/13;
+  background-color: goldenrod;
+}

@@ -1,4 +1,9 @@
 import React, { Component } from 'react';
+import './App.css';
+import Content from './components/content/index';
+import Footer from './components/footer/index';
+import Header from './components/header/index';
+import { BrowserRouter as Router } from 'react-router-dom';
 
 class App extends Component {
   state = {
@@ -24,11 +29,14 @@ class App extends Component {
 
   render() {
     return (
-      <div className="App">
-        <header className="App-header">
-        </header>
-        <p className="App-intro">{this.state.data}</p>
-      </div>
+      <Router>
+        <div className="App">
+          <Header />
+          <Content />
+          <Footer />
+          <p className="App-intro">{this.state.data}</p>
+        </div>
+      </Router>
     );
   }
 }
