@@ -15,12 +15,12 @@
 .home-on-top {
   grid-column: 1;
   grid-row: 1/5;
+  border-bottom: solid 1px grey;
 }
 
 .home-middle {
   grid-column: 1;
   grid-row: 5/11;
-  background-color: rgb(141, 190, 55);
 }
 
 .home-bottom {
