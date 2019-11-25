@@ -1,0 +1,32 @@
+.home-middle {
+  display: flex;
+  flex-direction: column;
+}
+
+.home-middle-title {
+  width: 100%;
+  height: 60px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding-top: 1rem;
+}
+
+.home-middle-title {
+  font-weight: bold;
+  font-size: 1.5rem;
+  color: rgba(0, 0, 0, 0.8);
+}
+
+.home-middle-content {
+  width: 100%;
+  height: 100%;
+  padding: 1rem 1rem;
+}
+
+.home-middle-content-inner {
+  border: solid 1px green;
+  width: 100%;
+  height: 100%;
+  border-radius: 4px;
+}
