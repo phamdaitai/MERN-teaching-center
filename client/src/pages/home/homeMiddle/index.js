@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
 import ItemsCarousel from 'react-items-carousel';
-import { Button, Icon } from 'antd';
+import { Button, Icon, Carousel } from 'antd';
 import './style.css';
+import data from '../../../dataTest/courses.json';
 
 const noOfItems = 12;
-const noOfCards = 5;
+const noOfCards = 4;
 const autoPlayDelay = 2000;
 
 class HomeMiddle extends Component {
@@ -30,6 +31,29 @@ class HomeMiddle extends Component {
   tick = () => this.setState(prevState => ({
     activeItemIndex: (prevState.activeItemIndex + 1) % (noOfItems - noOfCards + 1),
   }));
+
+  getCourses = () => {
+    let datamap = data.map((value, key) => {
+      return (
+        <div className="home-middle-course-element">
+          <div className="home-middle-course-image" style={{ backgroundImage: 'url(https://scontent.fhan2-4.fna.fbcdn.net/v/t1.0-9/s960x960/39935696_1108507199297679_8608710148908646400_o.jpg?_nc_cat=105&_nc_ohc=XRGwH5Giy_cAQkf_mvQA7XzwMg3DcFxTibUsAYNbDKc7VOhqMIdSSy_IA&_nc_ht=scontent.fhan2-4.fna&oh=4716e085757d2288cc29c09a6806cce1&oe=5E8B474E)' }} >
+            <div><span>Giáo viên: </span></div>
+            <div>.</div>
+            <div>.</div>
+          </div>
+          <div className="home-middle-course-detail">
+            <p className="home-middle-course-title">{value.name + " môn " + value.subject}</p>
+            <p>Học phí: <span>{value.tuitition}</span> đồng</p>
+            <p>Thời gian học: <span>{value.schedule}</span></p>
+            <p>Thời gian khóa học: <span>{value.studyTime.courseTime}</span></p>
+            <p>Thời gian buổi học: <span>{value.studyTime.lessonTime}</span></p>
+            <p><Icon type="book" /> Môn: <span>{value.subject}</span></p>
+          </div>
+        </div>
+      )
+    })
+    return datamap;
+  }
 
   render() {
     return (
@@ -59,16 +83,7 @@ class HomeMiddle extends Component {
                   </Button>
                 }
               >
-                <div>a</div>
-                <div>b</div>
-                <div>c</div>
-                <div>d</div>
-                <div>e</div>
-                <div>f</div>
-                <div>c</div>
-                <div>d</div>
-                <div>e</div>
-                <div>f</div>
+                {this.getCourses()}
               </ItemsCarousel>
             </div>
           </div>
