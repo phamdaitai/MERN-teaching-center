@@ -4,16 +4,15 @@ const bcript=require('bcrypt');
 let autoIncrement=require('mongoose-auto-increment');
 
 autoIncrement.initialize(mongoose);
-let userSchema =new mongoose.Schema({
-    // _id:{
-    //     type:Number
-    // },
+let studentSchema =new mongoose.Schema({
+    _id:{
+        type:Number
+    },
     username: {
         type: String,
-        unique:true,
         required: [true, "Username is required"],
-        // index: {unique: true}
-    },
+        index: {unique: true}
+        },
     password: {
         type: String,
         required: [true, "Password is required"],
@@ -58,25 +57,10 @@ let userSchema =new mongoose.Schema({
     permission: {
         type: String,
         required: false
-    },
-    tokens: [{
-        token: {
-            type: String,
-            required: true
-        }
-    }]
+    }
 })
-// userSchema.statics.findByCredentials=async (username,password)=>{
-//     console.log("Hello World")
-//     const user=await User.findOne({username:username})
-//     if(!user){
-//         throw new Error('Unable to login')
-//     }
-//     const isMatch=await bcript.compare(password,user.password)
-//     if(!isMatch) throw new Error('Unable to login')
-//     return user
-// }
-userSchema.pre('save',async function (next) {
+studentSchema.plugin(autoIncrement.plugin,'Student')
+studentSchema.pre('save',async function (next) {
     const user=this;
     if(user.isModified('password')){
         user.password=await bcript.hash(user.password,1);
@@ -84,6 +68,5 @@ userSchema.pre('save',async function (next) {
     }
     next();
 })
-userSchema.plugin(autoIncrement.plugin,'User')
-const User=mongoose.model('User',userSchema)
-module.exports = {User}
+const Student=mongoose.model('Student',studentSchema)
+module.exports = {Student}
