@@ -1,7 +1,72 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="57aaf603-6724-487f-8419-771c54803090" name="Default Changelist" comment="" />
+    <list default="true" id="57aaf603-6724-487f-8419-771c54803090" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/../.idea/MERN-teaching-center.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/server/models/classGroup.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/server/models/document.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/server/models/homework.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/server/models/lecture.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/server/models/question.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/server/models/review.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/server/models/test.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/server/routers/course.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/server/routers/user.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/server/test/student.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Server2/.idea/.gitignore" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Server2/.idea/misc.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Server2/.idea/modules.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Server2/.idea/n3-12-08-auth-middleware.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Server2/.idea/vcs.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Server2/task-manager/node_modules/extend/.editorconfig" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Server2/task-manager/node_modules/extend/.eslintrc" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Server2/task-manager/node_modules/extend/.jscs.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Server2/task-manager/node_modules/extend/.travis.yml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Server2/task-manager/node_modules/extend/CHANGELOG.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Server2/task-manager/node_modules/extend/LICENSE" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Server2/task-manager/node_modules/extend/README.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Server2/task-manager/node_modules/extend/component.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Server2/task-manager/node_modules/extend/index.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Server2/task-manager/node_modules/extend/package.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Server2/task-manager/node_modules/mongoose-auto-increment/.npmignore" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Server2/task-manager/node_modules/mongoose-auto-increment/.travis.yml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Server2/task-manager/node_modules/mongoose-auto-increment/CONTRIBUTING.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Server2/task-manager/node_modules/mongoose-auto-increment/LICENSE" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Server2/task-manager/node_modules/mongoose-auto-increment/README.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Server2/task-manager/node_modules/mongoose-auto-increment/index.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Server2/task-manager/node_modules/mongoose-auto-increment/package.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Server2/task-manager/node_modules/mongoose-auto-increment/test/mocha.opts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Server2/task-manager/node_modules/mongoose-auto-increment/test/test.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Server2/task-manager/node_modules/mongoose-bcrypt/.npmignore" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Server2/task-manager/node_modules/mongoose-bcrypt/LICENSE" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Server2/task-manager/node_modules/mongoose-bcrypt/README.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Server2/task-manager/node_modules/mongoose-bcrypt/index.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Server2/task-manager/node_modules/mongoose-bcrypt/package-lock.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Server2/task-manager/node_modules/mongoose-bcrypt/package.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Server2/task-manager/node_modules/mongoose-bcrypt/test/test.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Server2/task-manager/src/models/classGroup.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Server2/task-manager/src/models/course.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Server2/task-manager/src/models/document.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Server2/task-manager/src/models/homework.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Server2/task-manager/src/models/lecture.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Server2/task-manager/src/models/question.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Server2/task-manager/src/models/review.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Server2/task-manager/src/models/test.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Server2/task-manager/src/models/user.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Server2/task-manager/src/routers/user.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/db/mongoose.js" beforeDir="false" afterPath="$PROJECT_DIR$/server/db/mongoose.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/models/course.js" beforeDir="false" afterPath="$PROJECT_DIR$/server/models/course.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/models/student.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/models/teacher.js" beforeDir="false" afterPath="$PROJECT_DIR$/server/test/teacher.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/models/todo.js" beforeDir="false" afterPath="$PROJECT_DIR$/server/test/todo.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/models/user.js" beforeDir="false" afterPath="$PROJECT_DIR$/server/models/user.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/server.js" beforeDir="false" afterPath="$PROJECT_DIR$/server/server.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/tests/server.test.js" beforeDir="false" afterPath="$PROJECT_DIR$/server/tests/server.test.js" afterDir="false" />
+    </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -15,11 +80,19 @@
       </list>
     </option>
   </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
+  </component>
   <component name="ProjectId" id="1T9gtcMzpI6qmPbLAQkFAZE9ZqD" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
   <component name="PropertiesComponent">
+    <property name="ASKED_ADD_EXTERNAL_FILES" value="true" />
+    <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="javascript.nodejs.core.library.configured.version" value="10.16.3" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/../../../Phát triển phần mềm phân tán/AdminLTE-3.0.0" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../Server2" />
     <property name="nodejs_package_manager_path" value="npm" />
   </component>
   <component name="RunDashboard">
@@ -47,10 +120,30 @@
       <workItem from="1572877942129" duration="9720000" />
       <workItem from="1572920950152" duration="9265000" />
       <workItem from="1573383405546" duration="12865000" />
+      <workItem from="1573531534717" duration="1003000" />
+      <workItem from="1574125478807" duration="8009000" />
+      <workItem from="1574684219106" duration="14602000" />
+      <workItem from="1574730111752" duration="3144000" />
     </task>
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="1" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State>
+              <option name="COLUMN_ORDER" />
+            </State>
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
   </component>
 </project>
