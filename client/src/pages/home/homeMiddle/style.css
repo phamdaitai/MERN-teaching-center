@@ -39,3 +39,34 @@
   padding: 1rem 0rem;
   width: 1000px;
 }
+
+.home-middle-course-element {
+  height: 100%;
+  border: solid 1px grey;
+  border-radius: 4px;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+}
+
+.home-middle-course-image {
+  background-size: 100% 200px;
+  background-repeat: no-repeat;
+}
+
+.home-middle-course-image > div {
+  padding: 1rem;
+}
+
+.home-middle-course-title {
+  font-weight: bold;
+  text-transform: uppercase;
+}
+
+.home-middle-course-detail {
+  padding: 0.5rem 0.5rem;
+}
+
+.home-middle-course-detail > p > span {
+  color: rgb(116, 68, 68);
+}

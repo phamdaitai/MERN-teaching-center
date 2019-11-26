@@ -82,5 +82,33 @@
     "category": ["Học thêm lớp 10"],
     "topic": "Bổ trợ kiến thức lớp 10",
     "subject": "Tiếng Anh"
+  },
+  {
+    "courseId": "7",
+    "name": "Học thêm lớp 11",
+    "teacherId": "12",
+    "schedule": ["19:00 - Tuesday", "19:00 - Wednesday"],
+    "studyTime": {
+      "lessonTime": "19:00 - 20:30",
+      "courseTime": "20/10/2019 - 22/12/2019"
+    },
+    "tuitition": 1000000,
+    "category": ["Học thêm lớp 11"],
+    "topic": "Bổ trợ kiến thức lớp 11",
+    "subject": "Sinh"
+  },
+  {
+    "courseId": "8",
+    "name": "Học thêm lớp 10",
+    "teacherId": "12",
+    "schedule": ["19:00 - Tuesday", "19:00 - Wednesday"],
+    "studyTime": {
+      "lessonTime": "19:00 - 20:30",
+      "courseTime": "20/10/2019 - 22/12/2019"
+    },
+    "tuitition": 1000000,
+    "category": ["Học thêm lớp 10"],
+    "topic": "Nâng cao thức lớp 10",
+    "subject": "Tin"
   }
 ]
