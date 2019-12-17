@@ -1,0 +1,80 @@
+.document-manager {
+  width: 100%;
+  margin-top: 69px;
+  border-radius: 4px;
+  box-shadow: rgb(197, 197, 197) 0px 0px 10px 0px;
+  background-color: #fff;
+}
+
+.document-manager-inner {
+  width: 100%;
+  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+}
+
+.document-manager-header {
+  padding: 0.5rem 2rem;
+  font-size: 1.5rem;
+  text-transform: uppercase;
+  border-bottom: solid 1px grey;
+}
+
+.document-manager-header > button {
+  float: right;
+}
+
+.document-manager-filter {
+  padding: 1rem 2rem;
+  display: flex;
+}
+
+.document-manager-filter > * {
+  margin-right: 1rem;
+}
+
+.document-manager-filter > span {
+  max-width: 220px;
+}
+
+.document-manager-add-element {
+  display: flex;
+  margin-bottom: 1rem;
+}
+
+.document-manager-add-element > span {
+  width: 20%;
+}
+
+@media only screen and (max-width: 768px) {
+  .document-manager-header {
+    padding: 0.5rem 1rem;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .document-manager-header > button {
+    width: 100%;
+  }
+  .document-manager-filter {
+    padding: 0.5rem 1rem;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .document-manager-filter > * {
+    margin-top: 1rem;
+    margin-right: 0px;
+  }
+  .document-manager-filter > span {
+    max-width: 768px;
+  }
+
+  .document-manager-add-element {
+    display: flex;
+    flex-direction: column;
+  }
+  .document-manager-add-element > span {
+    width: 100%;
+  }
+}

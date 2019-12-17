@@ -16,7 +16,7 @@ class HomeOnTop extends Component {
 
 
   setDataCourse = (category) => {
-    const mapData = dataCourses.filter((value) => {
+    const mapData = dataCourses.filter((value, key) => {
       if (value.category[0] === category) {
         return value;
       }

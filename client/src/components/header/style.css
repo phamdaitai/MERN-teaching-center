@@ -64,6 +64,8 @@
   align-items: center;
   color: rgba(255, 255, 255, 0.8);
   text-decoration: none;
+  -webkit-transition: 0.8s;
+  transition: 0.8s;
 }
 
 .header-inner:hover {
@@ -71,8 +73,6 @@
   cursor: pointer;
   border-bottom: 2px solid #adca06;
   color: #21690e;
-  -webkit-transition: 0.8s;
-  transition: 0.8s;
 }
 
 /* search */

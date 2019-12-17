@@ -1,0 +1,42 @@
+.exam {
+  width: 100%;
+  margin-top: 69px;
+  border-radius: 4px;
+  box-shadow: rgb(197, 197, 197) 0px 0px 10px 0px;
+  background-color: #fff;
+}
+
+.exam-inner {
+  width: 100%;
+  padding: 2rem;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-gap: 10px;
+  grid-auto-rows: minmax(100px, auto);
+}
+
+.exam-left {
+  grid-column: 1;
+  grid-row: 1;
+}
+
+.exam-right {
+  grid-column: 2/4;
+  grid-row: 1;
+}
+
+@media only screen and (max-width: 768px) {
+  .exam-left {
+    grid-column: 1/4;
+    grid-row: 1;
+  }
+
+  .exam-right {
+    grid-column: 1/4;
+    grid-row: 2;
+  }
+
+  .document-manager-filter > .ant-input-search {
+    width: 100%;
+  }
+}

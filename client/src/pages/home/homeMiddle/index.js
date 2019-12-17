@@ -1,12 +1,13 @@
 import React, { Component } from 'react';
 import ItemsCarousel from 'react-items-carousel';
-import { Button, Icon, Carousel } from 'antd';
+import { Button, Icon } from 'antd';
+import { Link } from 'react-router-dom';
 import './style.css';
 import data from '../../../dataTest/courses.json';
 
 const noOfItems = 12;
 const noOfCards = 4;
-const autoPlayDelay = 2000;
+const autoPlayDelay = 5000;
 
 class HomeMiddle extends Component {
   constructor(props) {
@@ -35,11 +36,14 @@ class HomeMiddle extends Component {
   getCourses = () => {
     let datamap = data.map((value, key) => {
       return (
-        <div className="home-middle-course-element">
-          <div className="home-middle-course-image" style={{ backgroundImage: 'url(https://scontent.fhan2-4.fna.fbcdn.net/v/t1.0-9/s960x960/39935696_1108507199297679_8608710148908646400_o.jpg?_nc_cat=105&_nc_ohc=XRGwH5Giy_cAQkf_mvQA7XzwMg3DcFxTibUsAYNbDKc7VOhqMIdSSy_IA&_nc_ht=scontent.fhan2-4.fna&oh=4716e085757d2288cc29c09a6806cce1&oe=5E8B474E)' }} >
-            <div><span>Giáo viên: </span></div>
-            <div>.</div>
-            <div>.</div>
+        <Link className="home-middle-course-element" to="/subject">
+          <div className="home-middle-course-image">
+            <div style={{ backgroundImage: 'url(https://scontent.fhan2-4.fna.fbcdn.net/v/t1.0-9/s960x960/39935696_1108507199297679_8608710148908646400_o.jpg?_nc_cat=105&_nc_ohc=XRGwH5Giy_cAQkf_mvQA7XzwMg3DcFxTibUsAYNbDKc7VOhqMIdSSy_IA&_nc_ht=scontent.fhan2-4.fna&oh=4716e085757d2288cc29c09a6806cce1&oe=5E8B474E)' }} >
+              <div className="home-middle-tag-name">
+                <span>GV: </span>
+                <span>Nguyễn Chí Thanh</span>
+              </div>
+            </div>
           </div>
           <div className="home-middle-course-detail">
             <p className="home-middle-course-title">{value.name + " môn " + value.subject}</p>
@@ -47,9 +51,9 @@ class HomeMiddle extends Component {
             <p>Thời gian học: <span>{value.schedule}</span></p>
             <p>Thời gian khóa học: <span>{value.studyTime.courseTime}</span></p>
             <p>Thời gian buổi học: <span>{value.studyTime.lessonTime}</span></p>
-            <p><Icon type="book" /> Môn: <span>{value.subject}</span></p>
+            <p className="home-middle-subject"><Icon type="book" /> Môn: <span>{value.subject}</span></p>
           </div>
-        </div>
+        </Link>
       )
     })
     return datamap;
@@ -68,8 +72,6 @@ class HomeMiddle extends Component {
                 gutter={12}
                 slidesToScroll={1}
                 numberOfCards={noOfCards}
-                activeItemIndex={this.state.activeItemIndex}
-                requestToChangeActive={this.onChange}
                 activeItemIndex={this.state.activeItemIndex}
                 requestToChangeActive={value => this.setState({ activeItemIndex: value })}
                 rightChevron={

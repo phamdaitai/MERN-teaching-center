@@ -1,0 +1,90 @@
+[
+  {
+    "id": "1",
+    "name": "Nguyễn Văn A",
+    "number": 2,
+    "point": 44.8,
+    "exams": {
+      "1": 22,
+      "2": 22.8
+    }
+  },
+  {
+    "id": "2",
+    "name": "Đỗ Thị B",
+    "number": 1,
+    "point": 22.4,
+    "exams": {
+      "1": 22.4
+    }
+  },
+  {
+    "id": "3",
+    "name": "Đặng Văn C",
+    "number": 2,
+    "point": 43.4,
+    "exams": {
+      "1": 21,
+      "2": 22.4
+    }
+  },
+  {
+    "id": "4",
+    "name": "Dương Đình D",
+    "number": 2,
+    "point": 38.8,
+    "exams": {
+      "1": 18,
+      "2": 20.8
+    }
+  },
+  {
+    "id": "5",
+    "name": "Nguyễn Trọng E",
+    "number": 1,
+    "point": 26.8,
+    "exams": {
+      "1": 26.8
+    }
+  },
+  {
+    "id": "6",
+    "name": "Lê Thị F",
+    "number": 2,
+    "point": 48.6,
+    "exams": {
+      "1": 23,
+      "2": 25.6
+    }
+  },
+  {
+    "id": "7",
+    "name": "Phạm Hùng G",
+    "number": 2,
+    "point": 36.8,
+    "exams": {
+      "1": 18,
+      "2": 18.8
+    }
+  },
+  {
+    "id": "8",
+    "name": "Trịnh Văn H",
+    "number": 2,
+    "point": 48.4,
+    "exams": {
+      "1": 24.2,
+      "2": 24.2
+    }
+  },
+  {
+    "id": "9",
+    "name": "Tưởng Hồng Q",
+    "number": 1,
+    "point": 34.6,
+    "exams": {
+      "1": 17,
+      "2": 17.6
+    }
+  }
+]
