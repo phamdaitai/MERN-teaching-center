@@ -1,0 +1,131 @@
+.exam-detail {
+  width: 100%;
+  margin-top: 69px;
+  border-radius: 4px;
+  box-shadow: rgb(197, 197, 197) 0px 0px 10px 0px;
+  background-color: #fff;
+}
+
+.exam-detail-inner {
+  width: 100%;
+  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.exam-detail-header {
+  text-align: center;
+  /* border-bottom: solid 1px greenyellow; */
+  padding-bottom: 1rem;
+  width: 100%;
+}
+
+.exam-detail-header > span {
+  text-transform: uppercase;
+  font-weight: 600;
+  font-size: 1.5rem;
+  color: red;
+}
+
+.exam-detail-body {
+  padding: 2rem;
+  border: solid 0.5px rgb(206, 206, 206);
+  width: 1000px;
+  border-radius: 4px;
+}
+
+/* CONTENT */
+
+.exam-radio-element {
+  display: flex;
+}
+
+.exam-detail-element-header {
+  padding: 1rem 0rem;
+}
+
+.exam-detail-element-header > span {
+  padding: 0.5rem 1rem;
+  background-color: rgb(0, 153, 255);
+  color: rgba(0, 0, 0, 0.8);
+  font-weight: 600;
+  border-radius: 4px;
+  font-size: 1.25rem;
+}
+
+.exam-detail-element-question {
+  padding-left: 1.5rem;
+  font-size: 1.25rem;
+}
+.exam-detail-element-content {
+  padding-left: 2rem;
+  font-size: 1.25rem;
+}
+
+.exam-radio-element {
+  font-size: 1.25rem;
+}
+
+.exam-radio-value {
+  padding-left: 1rem;
+}
+
+.exam-detail-bottom {
+  position: fixed;
+  bottom: 0.875rem;
+  right: 0.875rem;
+  height: 55px;
+  width: 400px;
+  box-shadow: 0px 0px 5px 0px grey;
+  background-color: #fff;
+  border-radius: 4px;
+  display: flex;
+  align-content: center;
+  align-items: center;
+}
+
+.exam-detail-submit {
+  padding-left: 20px;
+}
+
+.exam-detail-submit > div {
+  padding: 6px 10px;
+  background-color: #ff9933;
+  border-radius: 4px;
+  cursor: pointer;
+  color: rgba(255, 255, 255, 0.8);
+}
+
+.exam-detail-submit > div:hover {
+  background-color: #fd840a;
+  color: rgba(255, 255, 255, 1);
+  transform: scale(1.05);
+}
+
+.exam-detail-time {
+  padding-left: 120px;
+}
+
+.exam-correct-question {
+  color: red;
+}
+
+@media only screen and (max-width: 768px) {
+  .exam-detail-inner {
+    padding: 1rem;
+  }
+
+  .exam-detail-body {
+    width: 100%;
+    padding: 1rem;
+  }
+
+  .exam-detail-bottom {
+    width: 300px;
+  }
+
+  .exam-detail-time {
+    padding-left: 60px;
+  }
+}

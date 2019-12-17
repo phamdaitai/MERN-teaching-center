@@ -1,0 +1,78 @@
+.subject-right {
+  box-shadow: 0px 0px 1px 0px grey;
+}
+
+.subject-right-inner {
+  width: 100%;
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+}
+
+.subject-right-element {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.subject-right-element {
+  border-bottom: solid 0.5px #ddd;
+}
+
+.subject-right-element > div {
+  width: 100%;
+  display: flex;
+  justify-content: left;
+  align-items: center;
+  padding: 1rem;
+}
+
+.subject-right-title {
+  width: 45%;
+  display: flex;
+  align-items: center;
+}
+
+.subject-right-title > i {
+  font-size: 20px;
+  color: rgb(80, 161, 100);
+  padding-right: 0.5rem;
+}
+
+.subject-right-title > span {
+  font-weight: bold;
+}
+
+.subject-right-describe {
+  width: 55%;
+}
+
+.subject-right-describe > span {
+  font-size: 0.875rem;
+  display: block;
+  float: right;
+}
+
+.subject-right-tuitition-fee {
+  color: rgb(255, 106, 106);
+  font-weight: bold;
+  font-style: italic;
+}
+
+.subject-register {
+  width: 100%;
+  height: 4rem;
+  border: 0px;
+  background-color: #02bad4;
+  color: rgba(255, 255, 255, 0.8);
+  border-radius: 0px;
+  text-transform: uppercase;
+  font-size: 1.25rem;
+  font-weight: 500;
+}
+
+.subject-register:hover {
+  background-color: #05ac1b;
+  color: rgba(255, 255, 255, 0.8);
+}

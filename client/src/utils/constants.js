@@ -1,0 +1,1 @@
+export const SAVE_USER_LOGIN = 'SAVE_USER_LOGIN';

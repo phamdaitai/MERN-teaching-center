@@ -1,0 +1,129 @@
+.subject-left {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.subject-header {
+  width: 100%;
+}
+
+.subject-title-name {
+  font-weight: bold;
+  text-transform: uppercase;
+  letter-spacing: -0.8;
+  font-size: 20px;
+  padding-bottom: 1rem;
+}
+
+.subject-nav {
+  width: 100%;
+  display: flex;
+}
+
+.subject-nav-element {
+  width: 33.33%;
+  cursor: pointer;
+  border-top: solid 2px #ff9900;
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-content: center;
+  align-items: center;
+  text-transform: uppercase;
+  font-weight: 500;
+}
+
+.subject-nav-element:hover {
+  border-top: solid 2px #02bad4;
+  font-weight: 699;
+}
+
+.subject-nav-element::after {
+  display: block;
+  width: 40px;
+  border-top: 1px solid #ddd;
+  content: "";
+}
+
+.subject-nav-element > span {
+  padding-top: 0.5rem;
+  padding-bottom: 1rem;
+}
+
+.subject-describe {
+  padding: 1rem;
+  width: 100%;
+}
+
+.subject-describe-inner {
+  width: 100%;
+  background-color: #f9f9f9;
+  border: solid 1px #dedfe0;
+  border-radius: 4px;
+  font-family: "comic sans ms", sans-serif;
+}
+
+.subject-describe-title {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-size: 1.2rem;
+  color: rgb(233, 116, 116);
+}
+
+.subject-describe-title > span {
+  padding: 1.5rem 0rem 1rem 0rem;
+}
+
+.subject-describe-title::after {
+  display: block;
+  width: 40%;
+  border-top: 1px solid #ddd;
+  content: "";
+}
+
+.subject-describe-content {
+  padding: 1rem;
+  overflow: hidden;
+}
+
+.subject-comment {
+  padding: 1rem;
+  width: 100%;
+}
+
+.subject-comment-inner {
+  width: 100%;
+  background-color: #f9f9f9;
+  border: solid 1px #dedfe0;
+  border-radius: 4px;
+  font-family: "comic sans ms", sans-serif;
+  padding: 1rem;
+}
+
+.subject-comment-input {
+  display: flex;
+  align-items: center;
+}
+
+.subject-comment-input > button {
+  height: 3rem;
+  margin-left: 0.75rem;
+}
+
+.subject-notice {
+  padding: 1rem;
+  width: 100%;
+}
+
+.subject-notice-inner {
+  width: 100%;
+  background-color: #f9f9f9;
+  border: solid 1px #dedfe0;
+  border-radius: 4px;
+  font-family: "comic sans ms", sans-serif;
+  padding: 1rem;
+}
