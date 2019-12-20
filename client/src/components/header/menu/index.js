@@ -15,7 +15,7 @@ class Menu extends Component {
           <div className="header-dropdown-content">
             <Link to='/document-manager' className=""><span>Tài liệu</span></Link>
             <Link className=""><span>Bài thi</span></Link>
-            <Link className=""><span>Khóa học</span></Link>
+            <Link to='/course-manager' className=""><span>Khóa học</span></Link>
           </div>
         </div>
       </div>
