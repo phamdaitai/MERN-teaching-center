@@ -98,3 +98,21 @@
 .home-middle-subject {
   color: rgb(204, 109, 21);
 }
+.home-middle-carouse-respon {
+  display: none;
+}
+
+@media only screen and (max-width: 768px) {
+  .home-middle-carouse {
+    display: none;
+  }
+
+  .home-middle-carouse-respon {
+    display: block;
+    padding: 0rem 0rem;
+    width: 350px;
+  }
+  .home-middle-course-element {
+    font-size: 0.75rem;
+  }
+}

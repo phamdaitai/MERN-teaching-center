@@ -7,6 +7,7 @@ import './style.css';
 
 class Subject extends Component {
   render() {
+    console.log("slug:", this.props.match.params.id);
     return (
       <div className='subject'>
         <div className='subject-inner'>

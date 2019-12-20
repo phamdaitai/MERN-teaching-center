@@ -5,15 +5,17 @@ import Subject from '../pages/subject/index';
 import Exam from '../pages/exam/index';
 import ExamDetail from '../pages/examDetail/index';
 import DocumentManager from '../cmsPage/document/index';
+import CourseMananger from '../cmsPage/course/index';
 
 class Routes extends Component {
   render() {
     return (
       <Switch>
-        <Route path='/subject' component={Subject} />
+        <Route path='/course-manager' component={CourseMananger} />
         <Route path='/exam' component={Exam} />
         <Route path='/exam-detail' component={ExamDetail} />
         <Route path='/document-manager' component={DocumentManager} />
+        <Route path='/subject/:slug.:id.html' component={Subject} />
         <Route path="/" component={Home} />
       </Switch>
     );

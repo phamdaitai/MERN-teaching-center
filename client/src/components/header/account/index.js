@@ -1,12 +1,13 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
-import { Modal, Form, Icon, Input, Button, Checkbox, message, Avatar } from 'antd';
+import { Modal, Form, Icon, Input, Button, Checkbox, message, Avatar, Spin, Select } from 'antd';
 import cookie from 'react-cookies';
 import axios from 'axios';
 import 'antd/dist/antd.css';
 import './style.css';
 import { connect } from 'react-redux';
 import { saveUserLogin } from '../../../actions/index';
+const { Option } = Select;
 
 class Account extends Component {
   constructor(props) {
@@ -14,6 +15,7 @@ class Account extends Component {
     this.state = {
       visibleRegister: false,
       visibleLogin: false,
+      loadingRequestState: false,
       infoLogin: {
         userName: '',
         password: ''
@@ -38,27 +40,72 @@ class Account extends Component {
           data
         })
           .then((res) => {
-            let { addUserLogin } = this.props;
-            addUserLogin(res.data.user);
             cookie.save('isAuth', true, {
-              maxAge: 7200,
               path: '/'
             })
             cookie.save('token', res.data.token, {
-              maxAge: 7200,
+              path: '/'
+            })
+            cookie.save('info', res.data.user, {
               path: '/'
             })
             this.setState({
               visibleLogin: false,
             });
+            this.setState({ loadingRequestState: false });
             message.success('Đăng nhập thành công');
+            // let { addUserLogin } = this.props;
+            // addUserLogin(res.data.user);
           })
           .catch((err) => {
+            this.setState({ loadingRequestState: false });
             console.log(err);
             message.error('Tên người dùng hoặc mật khẩu không đúng');
           })
       }
     });
+  }
+
+  submitRegiter = (e) => {
+    e.preventDefault();
+    this.props.form.validateFields((err, values) => {
+      if (!err) {
+        let data = {
+          username: values.username, name: values.name,
+          email: values.email, class: values.class, address: values.address,
+          password: values.password, permission: 'student', phoneNumber: values.phoneNumber
+        };
+
+        console.log("data:", data);
+
+        axios({
+          method: 'POST',
+          url: 'https://fierce-oasis-19381.herokuapp.com/users',
+          data
+        })
+          .then((res) => {
+            this.setState({
+              loadingRequestState: false,
+              visibleRegister: false,
+              visibleLogin: true
+            });
+            message.success('Đăng ký thành thành công');
+          })
+          .catch((err) => {
+            this.setState({ loadingRequestState: false });
+            console.log(err);
+            message.error('Đăng ký không thành công');
+          })
+      }
+    });
+  }
+
+  logout = () => {
+    cookie.remove('isAuth');
+    cookie.remove('token');
+    let { addUserLogin } = this.props;
+    addUserLogin({});
+
   }
 
   handleOkRegister = e => {
@@ -91,53 +138,238 @@ class Account extends Component {
     });
   };
 
-  handleSubmit = e => {
-    e.preventDefault();
-    this.props.form.validateFields((err, values) => {
-      if (!err) {
-        console.log('Received values of form: ', values);
-      }
-    });
+  //CHECK INPUT PASSWORD
+  handleConfirmBlur = e => {
+    const { value } = e.target;
+    this.setState({ confirmDirty: this.state.confirmDirty || !!value });
   };
 
-  logout = () => {
-    cookie.remove('token', { path: '/' });
-    cookie.remove('isAuth', { path: '/' });
-    // this.props.history.push('/')
+  checValidation = (value) => {
+    let fistCharUppercase = false;//Kiem tra ky tu dau la chu viet hoa
+    let numberNotNull = false;//Kiem tra co it nhat 1 so trong chuoi
+    let specialCharacterNotNull = false;//Kiem tra co it nhat 1 ky tu dac biet
+    let passwordMinLength = false;//Kiem tra do dai password >= 8
+    for (let i = 0; i < value.length; i++) {
+      if (value[i].charCodeAt(0) >= 48 && value[i].charCodeAt(0) <= 57) {
+        numberNotNull = true;
+      }
+      if (value[i].charCodeAt(0) >= 58 && value[i].charCodeAt(0) <= 64) {
+        specialCharacterNotNull = true;
+      }
+    }
+    if (value[0].charCodeAt(0) >= 65 && value.charCodeAt(0) <= 90) fistCharUppercase = true;
+    if (value.length >= 8) passwordMinLength = true;
+
+    if (fistCharUppercase && numberNotNull && specialCharacterNotNull && passwordMinLength) {
+      return true;
+    }
+    return false;
   }
+
+  compareToFirstPassword = (rule, value, callback) => {
+    const { form } = this.props;
+    if (value && value !== form.getFieldValue('password')) {
+      callback('Hai mật khẩu không khớp nhau!');
+    } else {
+      callback();
+    }
+  };
+
+  validateToNextPassword = (rule, value, callback) => {
+    const { form } = this.props;
+    // console.log(value);
+    if (!this.checValidation(value)) {
+      callback('Mật khẩu phải bắt đầu bằng chữ hoa, có ít nhất 1 chữ số,1 ký tự đặc biệt và nhiều hơn 8 chữ');
+    }
+    if (value && this.state.confirmDirty) {
+      form.validateFields(['confirm'], { force: true });
+    }
+    callback();
+  };
+
+  handleWebsiteChange = value => {
+    let autoCompleteResult;
+    if (!value) {
+      autoCompleteResult = [];
+    } else {
+      autoCompleteResult = ['.com', '.org', '.net'].map(domain => `${value}${domain}`);
+    }
+    this.setState({ autoCompleteResult });
+  };
 
   render() {
     const { getFieldDecorator } = this.props.form;
     let isAuth = cookie.load('isAuth') || null;
-    const { userInfo } = this.props;
-    console.log(userInfo);
+    // const { userInfo } = this.props;
+    let userInfo = cookie.load('info') || {};
+    let { loadingRequestState, visibleLogin, visibleRegister } = this.state;
+    // console.log(userInfo);
+    const loadingIcon = <Icon type="loading" style={{ fontSize: 60 }} spin />;
+
+    const formItemLayout = {
+      labelCol: {
+        xs: { span: 24 },
+        sm: { span: 8 },
+      },
+      wrapperCol: {
+        xs: { span: 24 },
+        sm: { span: 16 },
+      },
+    };
+    const tailFormItemLayout = {
+      wrapperCol: {
+        xs: {
+          span: 24,
+          offset: 0,
+        },
+        sm: {
+          span: 16,
+          offset: 8,
+        },
+      },
+    };
     return (
       <div className="header-accout">
         {isAuth ? (<Link> <Avatar style={{ backgroundColor: '#87d068' }} icon="user" />
           <span style={{ paddingLeft: '10px' }}>{userInfo.name}</span></Link>) :
           (<Link className="header-login" onClick={this.showModalLogin}>Đăng nhập</Link>)}
         {isAuth ? (<Link onClick={this.logout}>Đăng xuất</Link>) : (<Link className="header-register" onClick={this.showModalRegister}>Đăng ký</Link>)}
-        <Modal
-          title="Đăng ký tài khoản"
-          visible={this.state.visibleRegister}
-          onOk={this.handleOkRegister}
-          onCancel={this.handleCancelRegister}
-          footer={null}
-        >
-          <p></p>
-        </Modal>
-        <Modal
+        {visibleRegister ? (
+          <Modal
+            title="Đăng ký tài khoản"
+            visible={this.state.visibleRegister}
+            onOk={this.handleOkRegister}
+            onCancel={this.handleCancelRegister}
+            footer={null}
+            className='modal-register'
+          >
+            <Form {...formItemLayout} onSubmit={(e) => this.submitRegiter(e)}>
+              <Form.Item label="Tên đăng nhập">
+                {getFieldDecorator('username', {
+                  rules: [{ required: true, message: 'Vui lòng nhập tên đăng nhập!' }],
+                })(
+                  <Input
+                    prefix={<Icon type="user" style={{ color: 'rgba(0,0,0,.25)' }} />}
+                    placeholder="Nhập tên đăng nhập..."
+                  />,
+                )}
+              </Form.Item>
+              <Form.Item label="Tên hiển thị">
+                {getFieldDecorator('name', {
+                  rules: [{ required: true, message: 'Vui lòng nhập tên hiển thị!' }],
+                })(
+                  <Input
+                    prefix={<Icon type="user" style={{ color: 'rgba(0,0,0,.25)' }} />}
+                    placeholder="Nhập tên hiển thị..."
+                  />,
+                )}
+              </Form.Item>
+              <Form.Item label="E-mail">
+                {getFieldDecorator('email', {
+                  rules: [
+                    {
+                      type: 'email',
+                      message: 'Email là trường bắt buộc!',
+                    },
+                    {
+                      required: true,
+                      message: 'Vui lòng nhập E-mail!',
+                    },
+                  ],
+                })(<Input
+                  prefix={<Icon type="mail" style={{ color: 'rgba(0,0,0,.25)' }} />}
+                  placeholder="Nhập email..."
+                />)}
+              </Form.Item>
+              <Form.Item label="Lớp">
+                {getFieldDecorator('class', {
+                  rules: [{ required: true, message: 'Vui lòng chọn lớp!' }],
+                })(
+                  <Select
+                    placeholder="Chọn lớp..."
+                    onChange={this.handleSelectChange}
+                  >
+                    <Option value="9">9</Option>
+                    <Option value="10">10</Option>
+                    <Option value="11">11</Option>
+                    <Option value="12">12</Option>
+                    <Option value="13">13</Option>
+                  </Select>,
+                )}
+              </Form.Item>
+              <Form.Item label="Mật khẩu" hasFeedback>
+                {getFieldDecorator('password', {
+                  rules: [
+                    {
+                      required: true,
+                      message: 'Vui lòng nhập mật khẩu của bạn!',
+                    },
+                    {
+                      validator: this.validateToNextPassword,
+                    },
+                  ],
+                })(<Input.Password
+                  prefix={<Icon type="lock" style={{ color: 'rgba(0,0,0,.25)' }} />}
+                  placeholder="Nhập mật khẩu..."
+                />)}
+              </Form.Item>
+              <Form.Item label="Xác nhận mật khẩu" hasFeedback>
+                {getFieldDecorator('confirm', {
+                  rules: [
+                    {
+                      required: true,
+                      message: 'Vui lòng xác nhận mật khẩu!',
+                    },
+                    {
+                      validator: this.compareToFirstPassword,
+                    },
+                  ],
+                })(<Input.Password onBlur={this.handleConfirmBlur}
+                  prefix={<Icon type="lock" style={{ color: 'rgba(0,0,0,.25)' }} />}
+                  placeholder="Xác nhận mật khẩu..."
+                />)}
+              </Form.Item>
+              <Form.Item label="Địa chỉ">
+                {getFieldDecorator('address', {
+                  rules: [{ required: true, message: 'Vui lòng nhập địa chỉ!' }],
+                })(
+                  <Input
+                    prefix={<Icon type="heat-map" style={{ color: 'rgba(0,0,0,.25)' }} />}
+                    placeholder="Nhập địa chỉ..."
+                  />,
+                )}
+              </Form.Item>
+              <Form.Item label="Số điện thoại">
+                {getFieldDecorator('phoneNumber', {
+                  rules: [{ required: true, message: 'Vui lòng nhập số điện thoại!' }],
+                })(
+                  <Input
+                    prefix={<Icon type="phone" style={{ color: 'rgba(0,0,0,.25)' }} />}
+                    placeholder="Số điện thoại..."
+                  />,
+                )}
+              </Form.Item>
+              <Form.Item {...tailFormItemLayout}>
+                <Button type="primary" htmlType="submit" onClick={() => { this.setState({ loadingRequestState: true }) }}>
+                  Đăng ký
+              </Button >
+              </Form.Item>
+            </Form>
+            {loadingRequestState ? (<Spin indicator={loadingIcon} className='register-loading-request' />) : null}
+          </Modal>) : null}
+        {visibleLogin ? (<Modal
           title="Đăng nhập"
           visible={this.state.visibleLogin}
           onOk={this.handleOkLogin}
           onCancel={this.handleCancelLogin}
           width={400}
           footer={null}
+          className='modal-login'
         >
           <Form onSubmit={this.submitLogin} className="login-form">
             <Form.Item>
               {getFieldDecorator('username', {
-                rules: [{ required: true, message: 'Please input your username!' }],
+                rules: [{ required: true, message: 'Vui lòng nhập tên người dùng!' }],
               })(
                 <Input
                   prefix={<Icon type="user" style={{ color: 'rgba(0,0,0,.25)' }} />}
@@ -147,7 +379,7 @@ class Account extends Component {
             </Form.Item>
             <Form.Item>
               {getFieldDecorator('password', {
-                rules: [{ required: true, message: 'Please input your Password!' }],
+                rules: [{ required: true, message: 'Vui lòng nhập mật khẩu!' }],
               })(
                 <Input
                   prefix={<Icon type="lock" style={{ color: 'rgba(0,0,0,.25)' }} />}
@@ -164,14 +396,14 @@ class Account extends Component {
               <a className="login-form-forgot" href>
                 Quên mật khẩu
           </a>
-              <Button type="primary" htmlType="submit" className="login-form-button">
+              <Button type="primary" htmlType="submit" className="login-form-button" onClick={() => { this.setState({ loadingRequestState: true }) }}>
                 Đăng nhập
           </Button>
               <a href>Đăng ký tài khoản mới!</a>
             </Form.Item>
           </Form>
-        </Modal>
-
+          {loadingRequestState ? (<Spin indicator={loadingIcon} className='login-loading-request' />) : null}
+        </Modal>) : null}
       </div>
     );
   }
