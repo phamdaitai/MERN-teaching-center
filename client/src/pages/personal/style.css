@@ -1,0 +1,14 @@
+.personal {
+  width: 100%;
+  margin-top: 69px;
+  border-radius: 4px;
+  box-shadow: rgb(197, 197, 197) 0px 0px 10px 0px;
+  background-color: #fff;
+}
+
+.personal-inner {
+  width: 100%;
+  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+}

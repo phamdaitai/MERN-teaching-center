@@ -33,3 +33,51 @@ export const convertURL = (str) => {
   // return
   return str;
 }
+
+export const validateInputNumber = (rule, value, callback) => {
+  if (value[0] === "0") {
+    callback("Bắt đầu bằng chữ số khác 0!");
+  }
+  for (let i = 0; i < value.length; i++) {
+    if (value[i].charCodeAt(0) < 48 || value[i].charCodeAt(0) > 57) {
+      callback("Phải là chữ số");
+    }
+  }
+  callback();
+}
+
+export const FormatDate = (date) => {
+  let d = new Date(date);
+  let dateFormat = `${d.getUTCDate()}/` + `${d.getUTCMonth() + 1}/` + `${d.getFullYear()}`;
+  return dateFormat;
+}
+
+export const FormatTime = (date) => {
+  let d = new Date(date);
+  let hour = d.getUTCHours();
+  let min = d.getUTCMinutes();
+  let timeFormat = `${hour + 7}:` + `${min > 10 ? min : '0' + min}`;
+  return timeFormat;
+}
+
+export const checValidation = (value) => {
+  let fistCharUppercase = false;//Kiem tra ky tu dau la chu viet hoa
+  let numberNotNull = false;//Kiem tra co it nhat 1 so trong chuoi
+  let specialCharacterNotNull = false;//Kiem tra co it nhat 1 ky tu dac biet
+  let passwordMinLength = false;//Kiem tra do dai password >= 8
+  for (let i = 0; i < value.length; i++) {
+    if (value[i].charCodeAt(0) >= 48 && value[i].charCodeAt(0) <= 57) {
+      numberNotNull = true;
+    }
+    if (value[i].charCodeAt(0) >= 58 && value[i].charCodeAt(0) <= 64) {
+      specialCharacterNotNull = true;
+    }
+  }
+  if (value[0].charCodeAt(0) >= 65 && value.charCodeAt(0) <= 90) fistCharUppercase = true;
+  if (value.length >= 8) passwordMinLength = true;
+
+  if (fistCharUppercase && numberNotNull && specialCharacterNotNull && passwordMinLength) {
+    return true;
+  }
+  return false;
+}
