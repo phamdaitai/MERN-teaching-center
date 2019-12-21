@@ -5,6 +5,8 @@ import {
 } from 'antd';
 import cookie from 'react-cookies';
 import axios from 'axios';
+import { validateInputNumber, FormatDate, FormatTime } from '../../actions/index';
+import { Link } from 'react-router-dom';
 import './style.css';
 const { Option } = Select;
 const { TextArea } = Input;
@@ -59,28 +61,14 @@ class CourseManager extends Component {
     });
   };
 
-  FormatDate = (date) => {
-    let d = new Date(date);
-    let dateFormat = `${d.getUTCDate()}/` + `${d.getUTCMonth() + 1}/` + `${d.getFullYear()}`;
-    return dateFormat;
-  }
-
-  FormatTime = (date) => {
-    let d = new Date(date);
-    let hour = d.getUTCHours();
-    let min = d.getUTCMinutes();
-    let timeFormat = `${hour + 7}:` + `${min > 10 ? min : '0' + min}`;
-    return timeFormat;
-  }
-
   submitNewCourse = (e) => {
     e.preventDefault();
     this.props.form.validateFields((err, values) => {
       if (!err) {
         this.setState({ loadingRequestState: true });
-        console.log(values);
-        let lessonTime = this.FormatTime(values.lessonTimeStart) + " - " + this.FormatTime(values.lessonTimeEnd);
-        let courseTime = this.FormatDate(values.courseTimeStart) + " - " + this.FormatDate(values.courseTimeEnd);
+        // console.log(values);
+        let lessonTime = FormatTime(values.lessonTimeStart) + " - " + FormatTime(values.lessonTimeEnd);
+        let courseTime = FormatDate(values.courseTimeStart) + " - " + FormatDate(values.courseTimeEnd);
         let tuition = parseInt(values.tuition)
         let userInfo = cookie.load('info') || {};
         let data = {
@@ -91,7 +79,7 @@ class CourseManager extends Component {
           tuition: tuition, subject: values.subject, description: values.description,
           student: [], exams: []
         };
-        console.log(data);
+        console.log(data)
         axios({
           method: 'POST',
           url: 'https://fierce-oasis-19381.herokuapp.com/courses',
@@ -114,18 +102,6 @@ class CourseManager extends Component {
         message.error('Vui lòng nhập đầy đủ thông tin');
       }
     });
-  }
-
-  validateInputNumber = (rule, value, callback) => {
-    if (value[0] === "0") {
-      callback("Số tiền đầu bằng chữ số khác 0!");
-    }
-    for (let i = 0; i < value.length; i++) {
-      if (value[i].charCodeAt(0) < 48 || value[i].charCodeAt(0) > 57) {
-        callback("Số tiền phải là chữ số");
-      }
-    }
-    callback();
   }
 
   render() {
@@ -160,8 +136,9 @@ class CourseManager extends Component {
       },
       {
         title: 'Bài thi',
-        dataIndex: '',
-        className: "name-column"
+        dataIndex: '_id',
+        className: "name-column",
+        render: (data) => { return <Link to="exam">Xem bài thi</Link> }
       }
     ]
     const formItemLayout = {
@@ -220,7 +197,7 @@ class CourseManager extends Component {
                   {getFieldDecorator('tuition', {
                     rules: [
                       { required: true, message: 'Vui lòng nhập vào học phí!' },
-                      { validator: this.validateInputNumber }],
+                      { validator: validateInputNumber }],
                   })(
                     <Input
                       placeholder="Ví dụ: 1000000"

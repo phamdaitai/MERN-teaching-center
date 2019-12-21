@@ -6,7 +6,7 @@ import axios from 'axios';
 import 'antd/dist/antd.css';
 import './style.css';
 import { connect } from 'react-redux';
-import { saveUserLogin } from '../../../actions/index';
+import { saveUserLogin, checValidation } from '../../../actions/index';
 const { Option } = Select;
 
 class Account extends Component {
@@ -16,6 +16,7 @@ class Account extends Component {
       visibleRegister: false,
       visibleLogin: false,
       loadingRequestState: false,
+      infoState: {},
       infoLogin: {
         userName: '',
         password: ''
@@ -29,6 +30,29 @@ class Account extends Component {
     });
   };
 
+  getInfo = () => {
+    axios({
+      method: 'GET',
+      url: 'https://fierce-oasis-19381.herokuapp.com/users/me',
+      headers: { Authorization: `Bearer ${cookie.load('token')}` }
+    })
+      .then((res) => {
+        console.log(res.data);
+        this.setState({
+          infoState: res.data
+        })
+      })
+      .catch((err) => {
+        console.log(err);
+      })
+  }
+
+  componentWillMount() {
+    if (cookie.load('isAuth')) {
+      this.getInfo();
+    }
+  }
+
   submitLogin = (e) => {
     e.preventDefault();
     this.props.form.validateFields((err, values) => {
@@ -40,19 +64,22 @@ class Account extends Component {
           data
         })
           .then((res) => {
+            console.log(res.data);
+            res.data.user.avatar = [];
+            cookie.save('info', res.data.user, {
+              path: '/'
+            })
             cookie.save('isAuth', true, {
               path: '/'
             })
             cookie.save('token', res.data.token, {
               path: '/'
             })
-            cookie.save('info', res.data.user, {
-              path: '/'
-            })
             this.setState({
               visibleLogin: false,
             });
             this.setState({ loadingRequestState: false });
+            this.getInfo();
             message.success('Đăng nhập thành công');
             // let { addUserLogin } = this.props;
             // addUserLogin(res.data.user);
@@ -103,6 +130,7 @@ class Account extends Component {
   logout = () => {
     cookie.remove('isAuth');
     cookie.remove('token');
+    cookie.remove('info');
     let { addUserLogin } = this.props;
     addUserLogin({});
 
@@ -144,28 +172,6 @@ class Account extends Component {
     this.setState({ confirmDirty: this.state.confirmDirty || !!value });
   };
 
-  checValidation = (value) => {
-    let fistCharUppercase = false;//Kiem tra ky tu dau la chu viet hoa
-    let numberNotNull = false;//Kiem tra co it nhat 1 so trong chuoi
-    let specialCharacterNotNull = false;//Kiem tra co it nhat 1 ky tu dac biet
-    let passwordMinLength = false;//Kiem tra do dai password >= 8
-    for (let i = 0; i < value.length; i++) {
-      if (value[i].charCodeAt(0) >= 48 && value[i].charCodeAt(0) <= 57) {
-        numberNotNull = true;
-      }
-      if (value[i].charCodeAt(0) >= 58 && value[i].charCodeAt(0) <= 64) {
-        specialCharacterNotNull = true;
-      }
-    }
-    if (value[0].charCodeAt(0) >= 65 && value.charCodeAt(0) <= 90) fistCharUppercase = true;
-    if (value.length >= 8) passwordMinLength = true;
-
-    if (fistCharUppercase && numberNotNull && specialCharacterNotNull && passwordMinLength) {
-      return true;
-    }
-    return false;
-  }
-
   compareToFirstPassword = (rule, value, callback) => {
     const { form } = this.props;
     if (value && value !== form.getFieldValue('password')) {
@@ -178,7 +184,7 @@ class Account extends Component {
   validateToNextPassword = (rule, value, callback) => {
     const { form } = this.props;
     // console.log(value);
-    if (!this.checValidation(value)) {
+    if (!checValidation(value)) {
       callback('Mật khẩu phải bắt đầu bằng chữ hoa, có ít nhất 1 chữ số,1 ký tự đặc biệt và nhiều hơn 8 chữ');
     }
     if (value && this.state.confirmDirty) {
@@ -228,9 +234,10 @@ class Account extends Component {
         },
       },
     };
+    console.log(this.state.infoState);
     return (
       <div className="header-accout">
-        {isAuth ? (<Link> <Avatar style={{ backgroundColor: '#87d068' }} icon="user" />
+        {isAuth ? (<Link to='personal'> <Avatar style={{ backgroundColor: '#87d068' }} icon="user" />
           <span style={{ paddingLeft: '10px' }}>{userInfo.name}</span></Link>) :
           (<Link className="header-login" onClick={this.showModalLogin}>Đăng nhập</Link>)}
         {isAuth ? (<Link onClick={this.logout}>Đăng xuất</Link>) : (<Link className="header-register" onClick={this.showModalRegister}>Đăng ký</Link>)}

@@ -53,10 +53,25 @@
   background-color: yellow;
 }
 
+.exam-add-button > button {
+  margin: 1rem 2rem;
+}
+
+.add-exam-loading-request {
+  position: absolute;
+  bottom: 300px;
+  left: 330px;
+}
+
 @media only screen and (max-width: 768px) {
   .exam-element {
     display: flex;
     flex-direction: column;
     justify-content: center;
+  }
+  .add-exam-loading-request {
+    position: absolute;
+    bottom: 200px;
+    left: 150px;
   }
 }
