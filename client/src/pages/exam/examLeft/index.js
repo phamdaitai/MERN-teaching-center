@@ -81,6 +81,7 @@ class ExamLeft extends Component {
           // console.log(valueData)
           values['content'] = valueData;
         }
+        values.courseId = parseInt(this.props.courseId);
         console.log(values);
         axios({
           method: 'POST',
