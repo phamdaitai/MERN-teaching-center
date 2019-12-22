@@ -4,8 +4,8 @@ import { Link } from 'react-router-dom';
 import { validateInputNumber } from '../../../actions/index';
 import axios from 'axios';
 import InputItem from './iputItem/index';
+import { convertURL } from '../../../actions/index';
 import './style.css';
-import exams from "../../../dataTest/exam.json";
 class ExamLeft extends Component {
   constructor(props) {
     super(props);
@@ -16,15 +16,16 @@ class ExamLeft extends Component {
     }
   }
 
-  mapData = () => {
+  mapData = (exams) => {
     let dataMap = exams.map((value, key) => {
       return (
         <div className="exam-element">
-          <span>{value.name}</span>
+          <span>{value.examName}</span>
           <Button type="primary">
-            <Link to='exam-detail'>Vào thi</Link>
+            <Link to={"/exam-detail/" + convertURL(value.examName) + "." + convertURL(this.props.courseName) + "." + value.examId +
+              "." + this.props.courseId + ".html"}>Vào thi</Link>
           </Button>
-        </div>
+        </div >
       )
     });
     return dataMap;
@@ -44,7 +45,6 @@ class ExamLeft extends Component {
   };
 
   handleCancelAdd = e => {
-    console.log(e);
     this.setState({
       visibleAddExam: false,
     });
@@ -171,11 +171,10 @@ class ExamLeft extends Component {
       },
     };
 
-    let { valueProps = {} } = this.props;
+    let { valueProps = {}, exams } = this.props;
     let { loadingRequestState } = this.state;
     const loadingIcon = <Icon type="loading" style={{ fontSize: 60 }} spin />;
     // console.log('DATA STATE', this.state.dataState);
-
     return (
       <div className="exam-left">
         <div className="exam-left-inner">
@@ -242,7 +241,7 @@ class ExamLeft extends Component {
               </Form>
               {loadingRequestState ? (<Spin indicator={loadingIcon} className='add-exam-loading-request' />) : null}
             </Modal>
-            {this.mapData()}
+            {exams ? this.mapData(exams) : <Spin size="large" className='show-exam-left-loading' />}
           </div>
         </div>
       </div>

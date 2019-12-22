@@ -75,3 +75,29 @@
   width: 20%;
   text-align: center;
 }
+
+.show-exam-right-loading {
+  padding-left: 45%;
+  padding-top: 2rem;
+}
+
+.exam-detail-info-element {
+  display: flex;
+  padding: 0.875rem 0.5rem 0.5rem 0.5rem;
+  border-bottom: solid 1px grey;
+}
+
+.exam-detail-info-element-left {
+  font-weight: 600;
+  width: 77.5%;
+}
+
+.exam-detail-info-element-right {
+  font-weight: 600;
+  float: right;
+  width: 22.5%;
+}
+
+.exam-detail-info-element-right > span:first-child {
+  color: rgb(245, 133, 133);
+}
