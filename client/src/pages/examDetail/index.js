@@ -1,19 +1,40 @@
 import React, { Component } from 'react';
-import { Radio, Icon, Modal } from 'antd';
+import { Radio, Icon, Modal, Spin } from 'antd';
+import { Link } from 'react-router-dom';
+import axios from 'axios';
+import cookie from 'react-cookies';
 import './style.css';
 import 'antd/dist/antd.css';
 import examDetail from '../../dataTest/examDetail.json';
+import { convertURL } from '../../actions/index';
 
 class ExamDetail extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      examDetail: {},
       answerState: {},
       submitState: false,
       visibleModal: false
     }
   }
 
+  getExamDetail = () => {
+    axios({
+      method: 'GET',
+      url: `https://fierce-oasis-19381.herokuapp.com/tests/${this.props.match.params._id}`
+    })
+      .then((res) => {
+        console.log(res.data);
+        this.setState({
+          examDetail: res.data,
+          countDownState: res.data.time * 60
+        })
+      })
+      .catch((err) => {
+        console.log(err);
+      })
+  }
 
   getContentElement = (option, answer) => {
     let index = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H'];
@@ -41,7 +62,7 @@ class ExamDetail extends Component {
     })
   }
 
-  mapData = () => {
+  mapData = (examDetail) => {
     let examMap = examDetail.content.map((val, key) => {
       return (
         <div className='exam-detail-element'>
@@ -54,7 +75,7 @@ class ExamDetail extends Component {
             {val.question}
           </div>
           <div className='exam-detail-element-content'>
-            <Radio.Group onChange={(e) => this.onChange(e, val.id)} >
+            <Radio.Group onChange={(e) => this.onChange(e, val._id)} >
               {this.getContentElement(val.option, val.answer)}
             </Radio.Group>
           </div>
@@ -71,7 +92,8 @@ class ExamDetail extends Component {
   }
 
   componentDidMount() {
-    this.getTime();
+    // this.getTime();
+    this.getExamDetail();
     this.countDown();
   }
 
@@ -144,12 +166,13 @@ class ExamDetail extends Component {
       submitState: true
     })
     //data submit
-    let { answerState } = this.state;
+    let { answerState, examDetail } = this.state;
     let numberOfCorrect = 0;
+    console.log('answerState', answerState);
 
     for (let key in answerState) {
       examDetail.content.forEach(val => {
-        if (key === val.id) {
+        if (key === val._id) {
           if (answerState[`${key}`] === val.answer) {
             numberOfCorrect++;
           }
@@ -159,9 +182,34 @@ class ExamDetail extends Component {
 
     let point = (numberOfCorrect / examDetail.content.length) * 10;
     this.showPoint(point);
+
+    let infoStudent = cookie.load("info");
+    let data = {
+      studentId: infoStudent._id,
+      studentName: infoStudent.name,
+      courseId: parseInt(this.props.match.params.courseId),
+      examId: examDetail._id,
+      examName: examDetail.testName,
+      point: point
+    }
+    axios({
+      method: "POST",
+      url: "https://fierce-oasis-19381.herokuapp.com/users/completeTest",
+      data
+    })
+      .then((res) => {
+        console.log(res.data);
+        console.log("Bài thi đã được thêm");
+      })
+      .catch((err) => {
+        console.log(err);
+      })
   }
 
   render() {
+    let { examDetail, submitState } = this.state;
+    // console.log(this.props.match.params.courseId);
+    // console.log(this.props.match.params.courseName);
     return (
       <div className='exam-detail'>
         <div className="exam-detail-inner">
@@ -169,14 +217,24 @@ class ExamDetail extends Component {
             <span>Bài thi</span>
           </div>
           <div className="exam-detail-body">
-            {this.mapData()}
+            {examDetail.content ? this.mapData(examDetail) : <Spin size="large" className="loading-exam-detail" />}
             <div className="exam-detail-bottom">
-              <div className='exam-detail-submit' onClick={!this.state.submitState ? () => this.confirmSubmit() : null}>
-                <div>
-                  Nộp bài
+              {!submitState ? (
+                <div className='exam-detail-submit' onClick={!this.state.submitState ? () => this.confirmSubmit() : null}>
+                  <div>
+                    Nộp bài
                 <Icon type="right" />
-                </div>
-              </div>
+                  </div>
+                </div>) : (
+                  <Link to={"/exam/" + this.props.match.params.courseName + "." + this.props.match.params.courseId + ".html"}>
+                    <div className='exam-detail-back-charts'>
+                      <div>
+                        Về bảng xếp hạng
+                <Icon type="right" />
+                      </div>
+                    </div>
+                  </Link>
+                )}
               <Modal
                 // title="Basic Modal"
                 visible={this.state.visibleModal}
@@ -190,7 +248,7 @@ class ExamDetail extends Component {
                 <p style={{ fontSize: '18px' }}>Bạn có chắc chắn muốn nộp bài</p>
               </Modal>
               <div className='exam-detail-time'>
-                {this.displayClock()}
+                {examDetail.content ? this.displayClock() : null}
               </div>
             </div>
           </div>

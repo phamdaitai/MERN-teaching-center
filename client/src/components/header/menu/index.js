@@ -7,8 +7,8 @@ class Menu extends Component {
     return (
       <div className="header-menu">
         <Link className="header-inner" to="/">Trang chủ</Link>
-        <Link className="header-inner" to="subject">Khóa học</Link>
-        <Link className="header-inner" to="exam">Bài thi</Link>
+        <Link className="header-inner" to="/subject">Khóa học</Link>
+        <Link className="header-inner" to="/exam">Bài thi</Link>
         <Link className="header-inner">Tài liệu</Link>
         <div className="header-inner header-dropdown" to>
           <span>Quản lý</span>

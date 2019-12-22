@@ -1,13 +1,60 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
+import { Spin, Modal } from 'antd';
+import axios from 'axios';
 import './style.css';
-import ranks from '../../../dataTest/rank.json';
 
 class ExamRight extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      resultExams: []
+    }
+  }
 
-  mapData = () => {
-    let mapRanks = ranks.sort(function (a, b) {
-      return b.point - a.point;
+  info = (value) => {
+    Modal.info({
+      title: `Điểm thi của ${value.studentName}`,
+      content: (
+        <div className="exam-detail-info">
+          {value.exam.map((value, key) => (
+            <div className="exam-detail-info-element">
+              <div className="exam-detail-info-element-left">
+                {value.examName}
+              </div>
+              <div className="exam-detail-info-element-right">
+                <span>{value.point}</span>
+                <span> điểm</span>
+              </div>
+            </div>
+          ))}
+          <div className="exam-detail-info-element">
+            <div className="exam-detail-info-element-left">
+              Tổng điểm
+              </div>
+            <div className="exam-detail-info-element-right">
+              {value.exam.length > 1 ? <span>{value.exam.reduce(function (total, currentValue) {
+                return total + currentValue.point;
+              }, 0)}</span> : <span>{value.exam[0].point}</span>}
+              <span> điểm</span>
+            </div>
+          </div>
+        </div>
+      ),
+      onOk() { },
+    });
+  }
+
+  mapData = (resultExams) => {
+    let mapRanks = resultExams.sort(function (a, b) {
+      let a_total = a.exam.length > 1 ? a.exam.reduce(function (total, currentValue) {
+        return total + currentValue.point;
+      }, 0) : a.exam[0].point;
+      let b_total = b.exam.length > 1 ? b.exam.reduce(function (total, currentValue) {
+        return total + currentValue.point;
+      }, 0) : b.exam[0].point;
+      console.log(a_total + '---' + b_total);
+      return b_total - a_total;
     });
     let mapRanksDisplay = mapRanks.map((value, key) => {
       return (
@@ -16,16 +63,18 @@ class ExamRight extends Component {
             <span>{key + 1}</span>
           </div>
           <div className='rank-name'>
-            <span>{value.name}</span>
+            <span>{value.studentName}</span>
           </div>
           <div className="rank-num-of-exam">
-            <span>{value.number}</span>
+            <span>{value.exam.length}</span>
           </div>
           <div className="rank-total-point">
-            <span>{value.point}</span>
+            {value.exam.length > 1 ? <span>{value.exam.reduce(function (total, currentValue) {
+              return total + currentValue.point;
+            }, 0)}</span> : value.exam[0].point}
           </div>
           <div className="rank-detail">
-            <Link>Chi tiết</Link>
+            <Link onClick={() => this.info(value)}>Chi tiết</Link>
           </div>
         </div>
       )
@@ -34,7 +83,7 @@ class ExamRight extends Component {
   }
 
   render() {
-    console.log(ranks);
+    let { resultExams } = this.props;
     return (
       <div className='exam-right'>
         <div className='exam-right-inner'>
@@ -61,7 +110,7 @@ class ExamRight extends Component {
               </div>
             </div>
             <div className="rank-body">
-              {this.mapData()}
+              {resultExams ? this.mapData(resultExams) : <Spin size="large" className='show-exam-right-loading' />}
             </div>
           </div>
         </div>

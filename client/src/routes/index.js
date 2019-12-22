@@ -14,13 +14,14 @@ class Routes extends Component {
     return (
       <Switch>
         <Route path='/course-manager' component={CourseMananger} />
-        <Route path='/exam' component={Exam} />
-        <Route path='/exam-detail' component={ExamDetail} />
+        <Route path='/exam/:slug.:_id.html' component={Exam} exact />
+        <Route path='/exam-detail/:slug.:courseName.:_id.:courseId.html' component={ExamDetail} exact />
         <Route path='/personal' component={Personal} />
         <Route path='/document-manager' component={DocumentManager} />
         <Route path="/exam-manager" component={ExamManager} />
         <Route path='/subject/:slug.:_id.html' component={Subject} />
         <Route path="/" component={Home} />
+        <Route path="*" component={<div>Not Found</div>} />
       </Switch>
     );
   }

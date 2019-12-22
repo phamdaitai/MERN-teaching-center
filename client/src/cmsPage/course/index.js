@@ -6,6 +6,7 @@ import {
 import cookie from 'react-cookies';
 import axios from 'axios';
 import { validateInputNumber, FormatDate, FormatTime } from '../../actions/index';
+import { convertURL } from '../../actions/index';
 import { Link } from 'react-router-dom';
 import './style.css';
 const { Option } = Select;
@@ -27,9 +28,14 @@ class CourseManager extends Component {
       url: 'https://fierce-oasis-19381.herokuapp.com/courses'
     })
       .then((res) => {
-        console.log(res.data);
+        let info = cookie.load("info");
+        let dataCourse = res.data.filter((val, key) => {
+          if (info.courses.find(element => val._id === element.courseId)) {
+            return val;
+          }
+        })
         this.setState({
-          dataCourse: res.data
+          dataCourse
         })
       })
       .catch((err) => {
@@ -138,7 +144,7 @@ class CourseManager extends Component {
         title: 'Bài thi',
         dataIndex: '_id',
         className: "name-column",
-        render: (data) => { return <Link to="exam">Xem bài thi</Link> }
+        render: (data, record) => { return <Link to={"/exam/" + convertURL(record.name) + "." + record._id + ".html"}>Xem bài thi</Link> }
       }
     ]
     const formItemLayout = {
