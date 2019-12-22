@@ -5,7 +5,6 @@ import { Link } from 'react-router-dom';
 import { convertURL } from '../../../actions/index';
 import './style.css';
 import data from '../../../dataTest/courses.json';
-
 const noOfItems = 12;
 const noOfCards = 4;
 const autoPlayDelay = 5000;
@@ -14,13 +13,10 @@ class HomeMiddle extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      activeItemIndex: 0
+      activeItemIndex: 0,
+      dataCourses: []
     }
   }
-
-  state = {
-    activeItemIndex: 0,
-  };
 
   componentDidMount() {
     this.interval = setInterval(this.tick, autoPlayDelay);
@@ -29,6 +25,8 @@ class HomeMiddle extends Component {
   componentWillUnmount() {
     clearInterval(this.interval);
   }
+
+
 
   tick = () => this.setState(prevState => ({
     activeItemIndex: (prevState.activeItemIndex + 1) % (noOfItems - noOfCards + 1),

@@ -37,7 +37,7 @@ class Account extends Component {
       headers: { Authorization: `Bearer ${cookie.load('token')}` }
     })
       .then((res) => {
-        console.log(res.data);
+        // console.log(res.data);
         this.setState({
           infoState: res.data
         })
@@ -64,7 +64,7 @@ class Account extends Component {
           data
         })
           .then((res) => {
-            console.log(res.data);
+            // console.log(res.data);
             res.data.user.avatar = [];
             cookie.save('info', res.data.user, {
               path: '/'
@@ -103,7 +103,7 @@ class Account extends Component {
           password: values.password, permission: 'student', phoneNumber: values.phoneNumber
         };
 
-        console.log("data:", data);
+        // console.log("data:", data);
 
         axios({
           method: 'POST',
@@ -116,7 +116,7 @@ class Account extends Component {
               visibleRegister: false,
               visibleLogin: true
             });
-            message.success('Đăng ký thành thành công');
+            message.success('Đăng ký thành công');
           })
           .catch((err) => {
             this.setState({ loadingRequestState: false });
@@ -234,7 +234,7 @@ class Account extends Component {
         },
       },
     };
-    console.log(this.state.infoState);
+    // console.log(this.state.infoState);
     return (
       <div className="header-accout">
         {isAuth ? (<Link to='personal'> <Avatar style={{ backgroundColor: '#87d068' }} icon="user" />

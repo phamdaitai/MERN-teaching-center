@@ -19,7 +19,7 @@ class Routes extends Component {
         <Route path='/personal' component={Personal} />
         <Route path='/document-manager' component={DocumentManager} />
         <Route path="/exam-manager" component={ExamManager} />
-        <Route path='/subject/:slug.:id.html' component={Subject} />
+        <Route path='/subject/:slug.:_id.html' component={Subject} />
         <Route path="/" component={Home} />
       </Switch>
     );

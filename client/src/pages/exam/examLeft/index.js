@@ -234,13 +234,13 @@ class ExamLeft extends Component {
                     />)}
                 </Form.Item>
                 <Form.Item>
-                  <Button type="primary" htmlType="submit" className="add-course-form-button"
+                  <Button type="primary" htmlType="submit" className="add-exam-form-button"
                     onClick={() => this.setState({ loadingRequestState: true })}>
                     Thêm
                   </Button>
                 </Form.Item>
               </Form>
-              {loadingRequestState ? (<Spin indicator={loadingIcon} className='add-course-loading-request' />) : null}
+              {loadingRequestState ? (<Spin indicator={loadingIcon} className='add-exam-loading-request' />) : null}
             </Modal>
             {this.mapData()}
           </div>

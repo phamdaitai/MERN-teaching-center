@@ -33,7 +33,7 @@ class App extends Component {
   };
 
   render() {
-    console.log(this.state.data);
+    // console.log(this.state.data);
     return (
       <Router>
         <div className="App">
