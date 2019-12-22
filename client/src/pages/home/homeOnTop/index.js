@@ -1,27 +1,50 @@
 import React, { Component } from 'react';
-import { Icon, Carousel } from "antd";
+import { Icon, Carousel, Spin } from "antd";
+import { convertURL } from '../../../actions/index';
 import { Link } from 'react-router-dom';
 import 'antd/dist/antd.css';
 import './style.css';
-import dataCourses from '../../../dataTest/courses.json';
+import axios from 'axios';
 
 class HomeOnTop extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      category: "",
-      courses: []
+      categories: "",
+      dataCourses: [],
+      courses: [],
+      loadingState: false
     }
   }
 
+  getData = () => {
+    axios({
+      method: 'GET',
+      url: "https://fierce-oasis-19381.herokuapp.com/courses"
+    })
+      .then((res) => {
+        console.log(res.data);
+        this.setState({
+          dataCourses: res.data
+        })
+      })
+      .catch((err) => {
+        console.log(err);
+      })
+  }
 
-  setDataCourse = (category) => {
+  componentWillMount() {
+    this.getData();
+  }
+
+  setDataCourse = (categories) => {
+    let { dataCourses } = this.state;
     const mapData = dataCourses.filter((value, key) => {
-      if (value.category[0] === category) {
+      if (value.categories[0] === categories) {
         return value;
       }
     })
-    this.setState({ category })
+    this.setState({ categories })
     this.setState({ courses: mapData })
   };
 
@@ -74,7 +97,10 @@ class HomeOnTop extends Component {
                 <span>{topic1}</span>
               </div>
               <div className="topic-item">{Element1.map((value) => {
-                return <Link>{value.subject}</Link>
+                return <Link to={"/subject/" + convertURL(value.name) + "." + value._id + ".html"}>
+                  <span className="topic-item-subject">{value.subject}</span>
+                  <span className="topic-item-teacher">GV: {value.teacher.teacherName}</span>
+                </Link>
               })}
               </div>
             </>) : null}
@@ -86,7 +112,10 @@ class HomeOnTop extends Component {
                 <span>{topic2}</span>
               </div>
               <div className="topic-item">{Element2.map((value) => {
-                return <Link>{value.subject}</Link>
+                return <Link to={"/subject/" + convertURL(value.name) + "." + value._id + ".html"}>
+                  <span className="topic-item-subject">{value.subject}</span>
+                  <span className="topic-item-teacher">GV: {value.teacher.teacherName}</span>
+                </Link>
               })}
               </div>
             </>) : null}
@@ -98,7 +127,10 @@ class HomeOnTop extends Component {
                 <span>{topic3}</span>
               </div>
               <div className="topic-item">{Element3.map((value) => {
-                return <Link>{value.subject}</Link>
+                return <Link to={"/subject/" + convertURL(value.name) + "." + value._id + ".html"}>
+                  <span className="topic-item-subject">{value.subject}</span>
+                  <span className="topic-item-teacher">GV: {value.teacher.teacherName}</span>
+                </Link>
               })}
               </div>
             </>) : null}
@@ -109,7 +141,10 @@ class HomeOnTop extends Component {
               <span>{topic4}</span>
             </div>
             <div className="topic-item">{Element4.map((value) => {
-              return <Link>{value.subject}</Link>
+              return <Link className="topic-item" to={"/subject/" + convertURL(value.name) + "." + value._id + ".html"}>
+                <span className="topic-item-subject">{value.subject}</span>
+                <span className="topic-item-teacher">GV: {value.teacher.teacherName}</span>
+              </Link>
             })}
             </div>
           </>) : null}
@@ -119,7 +154,6 @@ class HomeOnTop extends Component {
   }
 
   render() {
-    console.log(dataCourses);
     return (
       <div className="home-on-top">
         <div className="home-sider">
@@ -128,10 +162,10 @@ class HomeOnTop extends Component {
             <span>Danh Mục</span>
           </div>
           <div className="home-sider-menu">
-            <li >
-              <span>luyện thi vào lớp 10</span>
+            <li onClick={() => this.setDataCourse("Luyện thi vào lớp 10")}>
+              <span>Luyện thi vào lớp 10</span>
             </li>
-            <li>
+            <li onClick={() => this.setDataCourse("Luyện thi Trung học phổ thông")}>
               <span>Luyện thi Trung học phổ thông</span>
             </li>
             <li onClick={() => this.setDataCourse("Học thêm lớp 10")}>
@@ -140,7 +174,7 @@ class HomeOnTop extends Component {
             <li onClick={() => this.setDataCourse("Học thêm lớp 11")}>
               <span>Học thêm lớp 11</span>
             </li>
-            <li>
+            <li onClick={() => this.setDataCourse("Học thêm lớp 12")}>
               <span>Học thêm lớp 12</span>
             </li>
           </div>
@@ -163,10 +197,9 @@ class HomeOnTop extends Component {
           ) : (
               <div className="home-courses-content">
                 <div className="home-courses-title">
-                  {this.state.category}
+                  {this.state.categories}
                 </div>
-
-                {this.getDataCourse()}
+                {this.state.dataCourses.length ? this.getDataCourse() : null}
               </div>
             )
           }

@@ -168,6 +168,13 @@
   color: rgba(0, 0, 0, 0.8);
   font-size: 14px;
   font-weight: 500;
+  display: flex;
+  flex-direction: column;
+}
+
+.topic-item-teacher {
+  font-size: 11px;
+  color: rgb(255, 137, 137);
 }
 
 .topic-item > a:hover {
@@ -184,5 +191,24 @@
   }
   .home-sider-menu > li {
     padding: 0.5rem;
+  }
+
+  .topic-item {
+    padding-top: 0rem;
+    padding-right: 0.5rem;
+    line-height: 1.2;
+  }
+
+  .topic-title > span {
+    font-size: 15px;
+    border-bottom: 3px solid #fcb040;
+    padding-bottom: 8px;
+    margin-right: 0.75rem;
+    line-height: 1.2;
+  }
+
+  .home-courses-list {
+    padding-left: 0.75rem;
+    padding-top: 0.5rem;
   }
 }

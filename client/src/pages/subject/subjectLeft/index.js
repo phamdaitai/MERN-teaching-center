@@ -1,8 +1,6 @@
 import React, { Component } from 'react';
 import './style.css';
-import { Input, Button } from 'antd';
-import courses from '../../../dataTest/courses.json';
-const course = courses[0];
+import { Input, Button, Spin } from 'antd';
 const { TextArea } = Input;
 
 class SubjectLeft extends Component {
@@ -14,39 +12,45 @@ class SubjectLeft extends Component {
   }
 
   getRender = () => {
+    let { course } = this.props;
     switch (this.state.renderState) {
       case 1:
         return (
           <div className="subject-describe">
-            <div className="subject-describe-inner">
-              <div className="subject-describe-title">
-                <span>Mô tả khóa học</span>
+            {course.description ? (
+              <div className="subject-describe-inner">
+                <div className="subject-describe-title">
+                  <span>Mô tả khóa học</span>
+                </div>
+                <div className="subject-describe-content">
+                  <p>
+                    {course.description}
+                  </p>
+                </div>
               </div>
-              <div className="subject-describe-content">
-                <p>
-                  {course.describe}
-                </p>
-              </div>
-            </div>
+            ) : <Spin size="large" style={{ paddingLeft: "45%", paddingTop: "15px", paddingBottom: "15px" }} />}
           </div>
         );
       case 2:
         return (
           <div className="subject-notice">
-            <div className="subject-notice-inner">
-              Không có thông báo nào
-            </div>
+            {course.description ? (
+              <div className="subject-notice-inner">
+                Không có thông báo nào
+            </div>) : <Spin size="large" style={{ paddingLeft: "45%", paddingTop: "15px", paddingBottom: "15px" }} />}
           </div>
         );
       case 3:
         return (
           <div className="subject-comment">
-            <div className="subject-comment-inner">
-              <div className="subject-comment-input">
-                <TextArea autoSize={{ minRows: 2, maxRows: 4 }} />
-                <Button>Bình luận</Button>
+            {course.description ? (
+              <div className="subject-comment-inner">
+                <div className="subject-comment-input">
+                  <TextArea autoSize={{ minRows: 2, maxRows: 4 }} />
+                  <Button>Bình luận</Button>
+                </div>
               </div>
-            </div>
+            ) : <Spin size="large" style={{ paddingLeft: "45%", paddingTop: "15px", paddingBottom: "15px" }} />}
           </div>
         );
       default: return null;
@@ -54,7 +58,7 @@ class SubjectLeft extends Component {
   }
 
   render() {
-    console.log(this.state);
+    let { course } = this.props;
     return (
       <div className='subject-left'>
         <div className='subject-header'>
