@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
-import { Icon, Button, Select, Input, Modal, Radio } from 'antd';
+import { Icon, Button, Select, Input, Modal, Radio, message } from 'antd';
 import './style.css';
+import cookie from 'react-cookies';
 const { Option } = Select;
 const { Search } = Input;
 const { TextArea } = Input;
@@ -45,8 +46,15 @@ class DocumentManager extends Component {
     });
   };
 
+  checkAuth = () => {
+    if (!cookie.load("isAuth")) {
+      message.info("Bạn cần phải đăng nhập để xem tài liệu");
+      this.props.history.push('/');
+    }
+  }
+
   render() {
-    console.log(this.state);
+    this.checkAuth();
     return (
       <div className='document-manager'>
         <div className='document-manager-inner'>

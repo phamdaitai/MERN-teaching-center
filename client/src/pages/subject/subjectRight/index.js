@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
-import { Icon, Button, Spin } from 'antd';
+import { Icon, Button, Spin, message } from 'antd';
+import cookie from 'react-cookies';
+import axios from 'axios';
 import './style.css';
 
 class SubjectRight extends Component {
@@ -13,8 +15,71 @@ class SubjectRight extends Component {
     return x;
   }
 
+  registerCourse = () => {
+    if (this.checkAuth()) {
+      let info = cookie.load("info");
+      let { course } = this.props;
+      let data = {
+        studentId: info._id,
+        studentName: info.name,
+        courseId: course._id,
+        courseName: course.name
+      }
+
+      axios({
+        method: "POST",
+        url: "https://fierce-oasis-19381.herokuapp.com/users/registerCourse",
+        data
+      })
+        .then((res) => {
+          message.success("Đăng ký khóa học thành công");
+          console.log(res.data);
+        })
+        .catch((err) => {
+          message.success("Bạn đã không được đăng ký khóa học này");
+          console.log(err);
+        })
+    }
+  }
+
+  checkCourseValid = () => {
+    let courses = cookie.load("courses") || [];
+    let { course } = this.props;
+    let check = false
+    if (courses.length) {
+      courses.forEach(element => {
+        if (element.courseId === course._id) {
+          check = true;
+        }
+      });
+    }
+    return check;
+  }
+
+  checkTeacherOrAdmin = () => {
+    let info = cookie.load("info") || {};
+    if (info) {
+      if (info.permission === "teacher" || info.permission === "admin") {
+        return true;
+      } else {
+        return false
+      }
+    }
+    return false;
+  }
+
+  checkAuth = () => {
+    if (!cookie.load("isAuth")) {
+      message.info("Bạn cần phải đăng nhập để đăng ký khóa học");
+      return false;
+    }
+    return true;
+  }
+
   render() {
     let { course } = this.props;
+    let validChecked = this.checkCourseValid();
+    let roleChecked = this.checkTeacherOrAdmin();
     return (
       <div className='subject-right'>
         {course.tuition ? (
@@ -71,9 +136,9 @@ class SubjectRight extends Component {
             </div>
           </div>
         ) : <Spin size="large" style={{ paddingLeft: "45%", paddingTop: "15px", paddingBottom: "15px" }} />}
-        <Button className="subject-register">
-          Đăng ký
-        </Button>
+        {!roleChecked ? (<Button className="subject-register" onClick={!validChecked ? () => this.registerCourse() : null}>
+          {validChecked ? "Đã đăng ký" : "Đăng ký"}
+        </Button>) : null}
       </div>
     );
   }

@@ -72,6 +72,10 @@
   padding-top: 1rem;
 }
 
+/* .ant-form-item-children {
+  float: right;
+} */
+
 @media only screen and (max-width: 768px) {
   .exam-element {
     display: flex;

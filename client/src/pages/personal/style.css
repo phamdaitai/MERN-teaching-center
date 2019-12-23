@@ -71,6 +71,13 @@
   left: 45%;
 }
 
+.personal-avatar-circle {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  box-shadow: 0px 0px 10px 0px rgb(148, 97, 97);
+}
+
 @media only screen and (max-width: 768px) {
   .personal-inner {
     padding: 1rem;

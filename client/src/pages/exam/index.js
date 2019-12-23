@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import axios from 'axios';
 import ExamLeft from './examLeft/index';
 import ExamRight from './examRight/index';
+import cookie from 'react-cookies';
+import { message } from 'antd';
 import './style.css';
 
 class Exam extends Component {
@@ -29,7 +31,15 @@ class Exam extends Component {
     this.getExamOfCourse();
   }
 
+  checkAuth = () => {
+    if (!cookie.load("isAuth")) {
+      message.info("Bạn đã đăng xuất, không thể xem tiếp");
+      this.props.history.push('/');
+    }
+  }
+
   render() {
+    this.checkAuth();
     let { course } = this.state;
     return (
       <div className="exam">

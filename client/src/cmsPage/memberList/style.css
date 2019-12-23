@@ -1,0 +1,18 @@
+.member-list {
+  width: 100%;
+  margin-top: 69px;
+  border-radius: 4px;
+  box-shadow: rgb(197, 197, 197) 0px 0px 10px 0px;
+  background-color: #fff;
+}
+
+.member-list-inner {
+  width: 100%;
+  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+}
+
+.icon-close-square {
+  color: rgb(255, 82, 82);
+}

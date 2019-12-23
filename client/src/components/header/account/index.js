@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, Redirect } from 'react-router-dom';
 import { Modal, Form, Icon, Input, Button, Checkbox, message, Avatar, Spin, Select } from 'antd';
 import cookie from 'react-cookies';
 import axios from 'axios';
@@ -19,7 +19,8 @@ class Account extends Component {
       infoState: {},
       infoLogin: {
         userName: '',
-        password: ''
+        password: '',
+        isAuth: false
       }
     };
   }
@@ -39,7 +40,8 @@ class Account extends Component {
       .then((res) => {
         // console.log(res.data);
         this.setState({
-          infoState: res.data
+          infoState: res.data,
+          isAuth: cookie.load("isAuth")
         })
       })
       .catch((err) => {
@@ -64,8 +66,12 @@ class Account extends Component {
           data
         })
           .then((res) => {
-            // console.log(res.data);
-            res.data.user.avatar = [];
+            cookie.save("courses", res.data.user.courses, {
+              path: '/'
+            });
+            cookie.save("exams", res.data.user.exams);
+            res.data.user.courses = [];
+            res.data.user.exams = [];
             cookie.save('info', res.data.user, {
               path: '/'
             })
@@ -77,6 +83,7 @@ class Account extends Component {
             })
             this.setState({
               visibleLogin: false,
+              isAuth: true
             });
             this.setState({ loadingRequestState: false });
             this.getInfo();
@@ -103,8 +110,6 @@ class Account extends Component {
           password: values.password, permission: 'student', phoneNumber: values.phoneNumber
         };
 
-        // console.log("data:", data);
-
         axios({
           method: 'POST',
           url: 'https://fierce-oasis-19381.herokuapp.com/users',
@@ -128,12 +133,18 @@ class Account extends Component {
   }
 
   logout = () => {
-    cookie.remove('isAuth');
-    cookie.remove('token');
-    cookie.remove('info');
-    let { addUserLogin } = this.props;
-    addUserLogin({});
-
+    while (cookie.load('isAuth') || cookie.load('info') || cookie.load('token')
+      || cookie.load('courses') || cookie.load('exams')) {
+      cookie.remove('isAuth');
+      cookie.remove('token');
+      cookie.remove('info');
+      cookie.remove('courses');
+      cookie.remove('exams');
+      console.log(cookie.load("exams"));
+    }
+    this.setState({ isAuth: false })
+    // let { addUserLogin } = this.props;
+    // addUserLogin({});
   }
 
   handleOkRegister = e => {
@@ -205,7 +216,8 @@ class Account extends Component {
 
   render() {
     const { getFieldDecorator } = this.props.form;
-    let isAuth = cookie.load('isAuth') || null;
+    // let isAuth = cookie.load('isAuth') || null;
+    let { isAuth } = this.state;
     // const { userInfo } = this.props;
     let userInfo = cookie.load('info') || {};
     let { loadingRequestState, visibleLogin, visibleRegister } = this.state;
@@ -237,7 +249,7 @@ class Account extends Component {
     // console.log(this.state.infoState);
     return (
       <div className="header-accout">
-        {isAuth ? (<Link to='personal'> <Avatar style={{ backgroundColor: '#87d068' }} icon="user" />
+        {isAuth ? (<Link to='/personal'> <Avatar style={{ backgroundColor: '#87d068' }} icon="user" />
           <span style={{ paddingLeft: '10px' }}>{userInfo.name}</span></Link>) :
           (<Link className="header-login" onClick={this.showModalLogin}>Đăng nhập</Link>)}
         {isAuth ? (<Link onClick={this.logout}>Đăng xuất</Link>) : (<Link className="header-register" onClick={this.showModalRegister}>Đăng ký</Link>)}

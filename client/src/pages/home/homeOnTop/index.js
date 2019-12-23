@@ -165,8 +165,8 @@ class HomeOnTop extends Component {
             <li onClick={() => this.setDataCourse("Luyện thi vào lớp 10")}>
               <span>Luyện thi vào lớp 10</span>
             </li>
-            <li onClick={() => this.setDataCourse("Luyện thi Trung học phổ thông")}>
-              <span>Luyện thi Trung học phổ thông</span>
+            <li onClick={() => this.setDataCourse("Luyện thi trung học phổ thông")}>
+              <span>Luyện thi trung học phổ thông</span>
             </li>
             <li onClick={() => this.setDataCourse("Học thêm lớp 10")}>
               <span>Học thêm lớp 10</span>

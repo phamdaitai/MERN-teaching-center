@@ -53,7 +53,6 @@ class ExamRight extends Component {
       let b_total = b.exam.length > 1 ? b.exam.reduce(function (total, currentValue) {
         return total + currentValue.point;
       }, 0) : b.exam[0].point;
-      console.log(a_total + '---' + b_total);
       return b_total - a_total;
     });
     let mapRanksDisplay = mapRanks.map((value, key) => {

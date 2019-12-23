@@ -3,6 +3,7 @@ import { Icon, Button, Modal, Form, Input, message, Spin } from 'antd';
 import { Link } from 'react-router-dom';
 import { validateInputNumber } from '../../../actions/index';
 import axios from 'axios';
+import cookie from 'react-cookies';
 import InputItem from './iputItem/index';
 import { convertURL } from '../../../actions/index';
 import './style.css';
@@ -12,18 +13,50 @@ class ExamLeft extends Component {
     this.state = {
       visibleAddExam: false,
       keys: [],
-      loadingRequestState: false
+      loadingRequestState: false,
+      permissionCheck: false,
+      examsOfStudent: []
     }
+  }
+
+  componentWillMount() {
+    let userInfo = cookie.load("info") || {};
+    let permissionCheck = (userInfo.permission === "student");
+    this.setState({
+      permissionCheck,
+      examsOfStudent: cookie.load("exams") || []
+    })
+  }
+
+  checkExamDoneValid = (examId) => {
+    let { permissionCheck } = this.state;
+    let { examsOfStudent } = this.state;
+    let validCheck = true;
+    if (permissionCheck) {
+      examsOfStudent.forEach((element) => {
+        if (element.examId === examId) {
+          validCheck = false;
+        }
+      })
+    } else {
+      return false;
+    }
+    return validCheck;
+  }
+
+  noticeUnable = () => {
+    message.warning("Bạn không thể làm bài thi này, kiểm tra bảng xếp hạng!!!");
   }
 
   mapData = (exams) => {
     let dataMap = exams.map((value, key) => {
+      let checked = this.checkExamDoneValid(value.examId);
       return (
         <div className="exam-element">
           <span>{value.examName}</span>
           <Button type="primary">
-            <Link to={"/exam-detail/" + convertURL(value.examName) + "." + convertURL(this.props.courseName) + "." + value.examId +
-              "." + this.props.courseId + ".html"}>Vào thi</Link>
+            <Link to={checked ? "/exam-detail/" + convertURL(value.examName) + "." + convertURL(this.props.courseName) + "." + value.examId +
+              "." + this.props.courseId + ".html" : null} onClick={!checked ? () => this.noticeUnable() : null}>Vào thi</Link>
           </Button>
         </div >
       )

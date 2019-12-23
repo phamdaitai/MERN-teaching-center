@@ -159,7 +159,15 @@ class PersonalPage extends Component {
     });
   }
 
+  checkAuth = () => {
+    if (!cookie.load("isAuth")) {
+      message.info("Bạn cần phải đăng nhập để xem thông tin");
+      this.props.history.push('/');
+    }
+  }
+
   render() {
+    this.checkAuth();
     let { info, infoEdit, editState } = this.state;
     const { getFieldDecorator } = this.props.form;
     let { loadingRequestState } = this.state;
@@ -191,8 +199,8 @@ class PersonalPage extends Component {
       <div className='personal'>
         <div className='personal-inner'>
           <div className='personal-avatar'>
-            {info.avatar ? <img src={`data:image/png;base64, ${info.avatar.data}`} alt="avatar" /> :
-              <Avatar size={80} style={{ backgroundColor: '#87d068', fontSize: "50px" }} icon="user" />}
+            {info.avatar ? <img className="personal-avatar-circle" src={`${info.avatar}`} alt="Loading..." /> :
+              <Avatar size={120} style={{ backgroundColor: '#87d068', fontSize: "50px" }} icon="user" />}
           </div>
           <div className='personal-info'>
             <div className="personal-info-element">

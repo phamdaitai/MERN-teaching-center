@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Radio, Icon, Modal, Spin } from 'antd';
+import { Radio, Icon, Modal, Spin, message } from 'antd';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
 import cookie from 'react-cookies';
@@ -206,7 +206,15 @@ class ExamDetail extends Component {
       })
   }
 
+  checkAuth = () => {
+    if (!cookie.load("isAuth")) {
+      message.info("Bạn cần phải đăng nhập để tiếp tục kiểm tra");
+      this.props.history.push('/');
+    }
+  }
+
   render() {
+    this.checkAuth();
     let { examDetail, submitState } = this.state;
     // console.log(this.props.match.params.courseId);
     // console.log(this.props.match.params.courseName);
