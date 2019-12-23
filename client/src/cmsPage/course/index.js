@@ -28,18 +28,29 @@ class CourseManager extends Component {
       url: 'https://fierce-oasis-19381.herokuapp.com/courses'
     })
       .then((res) => {
-        let info = cookie.load("info");
-        let dataCourse = res.data.filter((val, key) => {
-          if (info.courses.find(element => val._id === element.courseId)) {
-            return val;
-          }
-        })
-        this.setState({
-          dataCourse
-        })
+        console.log(res.data);
+        let coursesOfUser = cookie.load("courses");
+        if (this.checkPermission() === "admin") {
+          this.setState({
+            dataCourse: res.data
+          })
+        } else {
+          let dataCourse = res.data.filter((val, key) => {
+            if (coursesOfUser.find(element => val._id === element.courseId)) {
+              return val;
+            }
+          })
+          this.setState({
+            dataCourse,
+            loadingRequestState: false
+          })
+        }
       })
       .catch((err) => {
         console.log(err);
+        this.setState({
+          loadingRequestState: false
+        })
       })
   }
 
@@ -110,7 +121,56 @@ class CourseManager extends Component {
     });
   }
 
+  checkAuth = () => {
+    if (!cookie.load("isAuth")) {
+      message.info("Bạn cần phải đăng nhập để vào khóa học");
+      this.props.history.push('/');
+    }
+  }
+
+  checkUserInCourse = (idCourse) => {
+    let statusCheck = false;
+    let coursesOfUser = cookie.load("courses") || [];
+    coursesOfUser.forEach(element => {
+      if (idCourse === element.courseId) {
+        if (element.status === "accepted") statusCheck = true;
+      }
+    });
+    return statusCheck;
+  }
+
+  showNotice = () => {
+    message.warning("Bạn chưa được quyền");
+  }
+
+  checkPermission = () => {
+    let userInfo = cookie.load("info") || {};
+    return userInfo.permission;
+  }
+
+  changeStateFeatureCourse = (idCourse, featureCourse) => {
+    // console.log(`https://fierce-oasis-19381.herokuapp.com/courses/changefeature/${idCourse}?featureCourse=${!featureCourse}`);
+    axios({
+      method: 'PATCH',
+      url: `https://fierce-oasis-19381.herokuapp.com/courses/changefeature/${idCourse}?featureCourse=${!featureCourse}`
+    })
+      .then((res) => {
+        console.log(res.data);
+        let { dataCourse } = this.state;
+        dataCourse.forEach(element => {
+          if (element._id === idCourse) {
+            element.featureCourse = !featureCourse;
+          }
+        })
+        this.setState({ dataCourse });
+      })
+      .catch((err) => {
+        console.log(err);
+      })
+  }
+
   render() {
+    this.checkAuth();
     let { dataCourse, loadingRequestState } = this.state;
     const loadingIcon = <Icon type="loading" style={{ fontSize: 60 }} spin />;
     const columns = [
@@ -141,10 +201,38 @@ class CourseManager extends Component {
         className: "name-column"
       },
       {
+        title: `${this.checkPermission() === "admin" ? "Khóa học nổi bật" : "Trạng thái"}`,
+        dataIndex: `${this.checkPermission() === "admin" ? "featureCourse" : "_id"}`,
+        align: 'center',
+        className: "name-column",
+        render: (data, record) => {
+          if (this.checkPermission() === "admin") {
+            return data ? <Icon theme="twoTone" type="check-square" className="icon-check-square"
+              onClick={() => this.changeStateFeatureCourse(record._id, record.featureCourse)} /> :
+              <Icon type="close-square" className="icon-close-square"
+                onClick={() => this.changeStateFeatureCourse(record._id, record.featureCourse)} />
+          }
+          return this.checkUserInCourse(data) ? <Icon theme="twoTone" type="check-square" className="icon-check-square" /> :
+            <Icon type="close-square" className="icon-close-square" />
+        }
+      },
+      {
         title: 'Bài thi',
         dataIndex: '_id',
         className: "name-column",
-        render: (data, record) => { return <Link to={"/exam/" + convertURL(record.name) + "." + record._id + ".html"}>Xem bài thi</Link> }
+        render: (data, record) => {
+          return <Link to={this.checkUserInCourse(record._id) ? "/exam/" + convertURL(record.name) + "." + record._id + ".html" : null}
+            onClick={!this.checkUserInCourse(record._id) ? () => this.showNotice() : null}>Xem bài thi</Link>
+        }
+      },
+      {
+        title: 'Danh sách lớp',
+        dataIndex: '_id',
+        className: "name-column",
+        render: (data, record) => {
+          return <Link to={this.checkUserInCourse(record._id) ? "/member-list/" + convertURL(record.name) + "." + record._id + ".html" : null}
+            onClick={!this.checkUserInCourse(record._id) ? () => this.showNotice() : null}>Xem danh sách</Link>
+        }
       }
     ]
     const formItemLayout = {
@@ -158,6 +246,7 @@ class CourseManager extends Component {
       },
     };
     const { getFieldDecorator } = this.props.form;
+    console.log(this.state.courses);
     return (
       <div className='course-manager'>
         <div className='course-manager-inner'>

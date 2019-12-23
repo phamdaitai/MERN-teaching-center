@@ -7,17 +7,17 @@ class Menu extends Component {
     return (
       <div className="header-menu">
         <Link className="header-inner" to="/">Trang chủ</Link>
-        <Link className="header-inner" to="/subject">Khóa học</Link>
-        <Link className="header-inner" to="/exam">Bài thi</Link>
-        <Link className="header-inner">Tài liệu</Link>
-        <div className="header-inner header-dropdown" to>
+        <Link className="header-inner" to="/course-manager">Khóa học</Link>
+        <Link className="header-inner" to="/document-manager">Tài liệu</Link>
+        <Link className="header-inner" to="/teacher">Giáo viên</Link>
+        {/* <div className="header-inner header-dropdown" to>
           <span>Quản lý</span>
           <div className="header-dropdown-content">
             <Link to='/document-manager' className=""><span>Tài liệu</span></Link>
             <Link className=""><span>Bài thi</span></Link>
             <Link to='/course-manager' className=""><span>Khóa học</span></Link>
           </div>
-        </div>
+        </div> */}
       </div>
     );
   }
