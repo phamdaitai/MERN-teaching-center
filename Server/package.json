@@ -16,7 +16,7 @@
     "lodash": "^4.17.15",
     "md5": "^2.2.1",
     "mongodb": "^2.2.5",
-    "mongoose": "^4.5.9",
+    "mongoose": "^5.7.5",
     "mongoose-auto-increment": "^5.0.1",
     "react-redux": "^7.1.3"
   },
